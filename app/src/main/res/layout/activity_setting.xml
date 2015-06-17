@@ -1,0 +1,226 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="3dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="3dp"
+    android:weightSum="1"
+    tools:context="com.foxlinkimage.fit.scanapp.SettingsActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_device_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
+
+            <com.foxlinkimage.fit.customview.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.2"
+                android:text="@string/IP" />
+
+            <com.foxlinkimage.fit.customview.CustomEditText
+                android:id="@+id/IP"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/search_device"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@drawable/button_bgcolor"
+                android:text="@string/searchdevice"
+                android:textColor="#acaae4" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
+
+            <com.foxlinkimage.fit.customview.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                android:text="@string/launch_advance_setting" />
+
+            <ToggleButton
+                android:id="@+id/advance_option"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@drawable/button_bgcolor"
+                android:textColor="#acaae4"
+                android:textOff="@string/on"
+                android:textOn="@string/off" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--掃描參數區塊    -->
+        <LinearLayout
+            android:id="@+id/layout_scan_params"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/documentformat" />
+
+                <Spinner
+                    android:id="@+id/document_format"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/inputsource" />
+
+                <Spinner
+                    android:id="@+id/input_source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/colormode" />
+
+                <Spinner
+                    android:id="@+id/color_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/colorspace" />
+
+                <Spinner
+                    android:id="@+id/color_space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/ccdchannel" />
+
+                <Spinner
+                    android:id="@+id/ccd_channel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/binaryrendering" />
+
+                <Spinner
+                    android:id="@+id/binary_rendering"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/duplex" />
+
+                <Spinner
+                    android:id="@+id/duplex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.foxlinkimage.fit.customview.CustomTextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/discreteresolution" />
+
+                <Spinner
+                    android:id="@+id/discrete_resolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/device_name"
+        android:gravity="start|center"
+        android:layout_width="match_parent"
+        android:layout_weight="0.3"
+        android:layout_height="0dp"
+        android:textSize="20sp"
+        android:textColor="#b82e52ae"
+        tools:text="DEVICE NAME" />
+
+
+    <TextView
+        android:id="@+id/device_ip"
+        android:gravity="start|center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.35"
+        android:textColor="#b82e52ae"
+        android:text="default IP" />
+
+    <TextView
+        android:id="@+id/device_port"
+        android:gravity="start|center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.35"
+        android:textColor="#b82e52ae"
+        android:text="default PORT" />
+
+
+</LinearLayout>

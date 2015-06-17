@@ -1,0 +1,45 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.foxlinkimage.fit.scanapp.FolderActivity">
+    <!--
+    app:showAsAction這個參數可以決定ActionBar的menu項目擺放方式。
+    never   :  將所有項目放入以一個 "三個點" 的按鈕, 成為一個按popup的選單
+        參考  http://images.cnitblog.com/i/523661/201405/121736389846146.png
+    always  :   不管如何都會拆開來擺放顯示在ActionBar上 (Google如是說: 避免使用, 因為有的機器螢幕寬度不夠顯示, 而造成項目會看不到)。
+        參考  https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTy_S6hUs-eTtcI2vzs_NF64DWTL13CDWuEL7CyxpXbFTKFfaAriw
+    ifRoon  :   設置後會自動判斷, 如果有空間擺放的話就會拆開放, 否則會整入到"三個點", 通常與withText屬性一起使用, 利用 "|"。
+    withText:   :   如需要已文字顯示,  請在item裡面定義 android:title。
+    -->
+
+    <item
+        android:id="@+id/action_select_all"
+        android:title="@string/selectall"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/share"
+        app:showAsAction="ifRoom|withText">
+        <!--Sub menu for sharing type-->
+        <menu>
+            <item
+                android:id="@+id/action_facebook"
+                android:title="@string/facebook"
+                app:showAsAction="ifRoom|withText" />
+
+            <item
+                android:id="@+id/action_dropbox"
+                android:title="@string/dropbox"
+                app:showAsAction="ifRoom|withText" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_delete"
+        android:title="@string/delete"
+        app:showAsAction="ifRoom|withText" />
+
+
+</menu>

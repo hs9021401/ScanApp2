@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:weightSum="1"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="0dp"
+        android:layout_weight="0.3"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/foldername"
+        android:text="simple"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="match_parent" />
+
+    <CheckBox
+        android:id="@+id/multiselect"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:layout_weight="0.2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:checked="true" />
+
+</LinearLayout>

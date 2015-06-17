@@ -1,0 +1,115 @@
+<resources>
+    <string name="title_activity_settings">設定頁面</string>
+    <string name="title_activity_scan">掃描頁面</string>
+    <string name="title_activity_folder">資料夾頁面</string>
+    <string name="title_activity_search_device">搜尋裝置頁面</string>
+    <string name="title_activity_gallery">畫廊頁面</string>
+
+    <string name="app_name">掃描軟體</string>
+    <string name="action_settings">設定</string>
+
+    <string name="OK">好</string>
+    <string name="NO">否</string>
+    <string name="Cancel">取消</string>
+    <string name="canceling">取消中</string>
+    <string name="cancelscan">取消掃描</string>
+    <string name="cancelscanconfirm">正在掃描中, 確定要取消掃描回主頁嗎?</string>
+    <string name="waitmessage">請稍等一會....</string>
+
+    <string name="scan">掃描</string>
+    <string name="folder">資料夾</string>
+    <string name="setting">設定</string>
+
+    <string name="share">分享</string>
+    <string name="delete">刪除</string>
+    <string name="empty">資料夾為空</string>
+    <string name="selectall">全選</string>
+
+    <string name="facebook">臉書</string>
+    <string name="dropbox">Dropbox</string>
+
+    <!--Setting頁面-->
+    <string name="IP">IP位址</string>
+    <string name="searchdevice">搜尋裝置</string>
+    <string name="launch_advance_setting">進階參數選項</string>
+    <string name="on">開啟</string>
+    <string name="off">關閉</string>
+
+
+    <string name="documentformat">掃描格式</string>
+    <string name="inputsource">掃描來源</string>
+    <string name="colormode">色彩模式</string>
+    <string name="colorspace">色彩空間</string>
+    <string name="ccdchannel">感光通道</string>
+    <string name="binaryrendering">二進制渲染</string>
+    <string name="duplex">雙面列印</string>
+    <string name="discreteresolution">掃描解析度</string>
+
+    <!--Preference-->
+    <string name="PREFERENCES_NAME">myPreference</string>
+
+    <!--<string-array name="intents">-->
+        <!--<item>Document</item>-->
+        <!--<item>TextAndGraphic</item>-->
+        <!--<item>Photo</item>-->
+        <!--<item>Preview</item>-->
+    <!--</string-array>-->
+
+    <string-array name="document_format">
+        <item>image/jpeg</item>
+        <item>application/pdf</item>
+    </string-array>
+
+    <string-array name="input_source">
+        <item>Platen</item>
+        <item>Feeder</item>
+    </string-array>
+
+    <string-array name="color_mode">
+        <item>BlackAndWhite1</item>
+        <item>Grayscale8</item>
+        <item>Grayscale16</item>
+        <item>RGB24</item>
+        <item>RGB48</item>
+    </string-array>
+
+    <string-array name="color_space">
+        <item>YCC</item>
+        <item>RGB</item>
+        <item>sRGB</item>
+    </string-array>
+
+    <string-array name="ccd_channel">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>NTSC</item>
+        <item>GrayCcd</item>
+        <item>GrayCcdEmulated</item>
+    </string-array>
+
+    <string-array name="binary_rendering">
+        <item>Threshold</item>
+        <item>Halftone</item>
+    </string-array>
+
+    <string-array name="duplex">
+        <item>false</item>
+        <item>true</item>
+    </string-array>
+
+    <string-array name="discrete_resolution">
+        <item>75</item>
+        <item>150</item>
+        <item>200</item>
+        <item>240</item>
+        <item>300</item>
+        <item>400</item>
+        <item>500</item>
+        <item>600</item>
+        <item>1200</item>
+    </string-array>
+
+    <string name="app_id">489047957920987</string>
+
+</resources>

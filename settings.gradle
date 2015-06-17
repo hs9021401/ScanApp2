@@ -1,0 +1,2 @@
+include ':simple-crop-image-lib', ':app', ':facebook'
+project(':simple-crop-image-lib').projectDir = new File('cropimage-master/simple-crop-image-lib')
