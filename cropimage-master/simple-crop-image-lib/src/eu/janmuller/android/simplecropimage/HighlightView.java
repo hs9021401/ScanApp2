@@ -349,25 +349,27 @@ class HighlightView {
         if (dx > 0F && r.width() + 2 * dx > mImageRect.width()) {
             float adjustment = (mImageRect.width() - r.width()) / 2F;
             dx = adjustment;
-            if (mMaintainAspectRatio) {
-                dy = dx / mInitialAspectRatio;
-            }
+
+            //20150622 造成裁切BUG, 故註解
+//            if (mMaintainAspectRatio) {
+//                dy = dx / mInitialAspectRatio;
+//            }
         }
         if (dy > 0F && r.height() + 2 * dy > mImageRect.height()) {
             float adjustment = (mImageRect.height() - r.height()) / 2F;
             dy = adjustment;
-            if (mMaintainAspectRatio) {
-                dx = dy * mInitialAspectRatio;
-            }
+
+            //20150622 造成裁切BUG, 故註解
+//            if (mMaintainAspectRatio) {
+//                dx = dy * mInitialAspectRatio;
+//            }
         }
 
-//        r.inset(-dx, -dy);
         //20150608_可切割隨意大小
         if(edge==9 || edge==17)
-            r.inset(0,-dx);
-
+            r.inset(0,-dy);
         if(edge==3 ||edge==5)
-            r.inset(-dy,0);
+            r.inset(-dx,0);
 
         // Don't let the cropping rectangle shrink too fast.
         final float widthCap = 25F;

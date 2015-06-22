@@ -54,11 +54,27 @@ public class DropboxShare {
         // We create a new AuthSession so that we can use the Dropbox API.
         AppKeyPair appKeyPair = new AppKeyPair(APP_KEY, APP_SECRET);
         session = new AndroidAuthSession(appKeyPair);
+        loadAuth(session);
         mApi = new DropboxAPI<AndroidAuthSession>(session);
 
         checkAppKeySetup();
         Boolean b = mApi.getSession().isLinked();
         Log.d("TAG", "LOGGED is " + b);
+    }
+
+    private void loadAuth(AndroidAuthSession session) {
+        SharedPreferences prefs =   mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
+        String key = prefs.getString(ACCESS_KEY_NAME, null);
+        String secret = prefs.getString(ACCESS_SECRET_NAME, null);
+        if (key == null || secret == null || key.length() == 0 || secret.length() == 0) return;
+
+        if (key.equals("oauth2:")) {
+            // If the key is set to "oauth2:", then we can assume the token is for OAuth 2.
+            session.setOAuth2AccessToken(secret);
+        } else {
+            // Still support using old OAuth 1 tokens.
+            session.setAccessTokenPair(new AccessTokenPair(key, secret));
+        }
     }
 
     private void checkAppKeySetup() {
@@ -85,10 +101,7 @@ public class DropboxShare {
     public void Authenticate() {
         if (session.authenticationSuccessful()) {
             try {
-                // Mandatory call to complete the auth
                 session.finishAuthentication();
-
-                // Store it locally in our app for later use
                 storeAuth(session);
             } catch (IllegalStateException e) {
                 Log.d("TAG", "Error authenticating", e);

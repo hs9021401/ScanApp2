@@ -22,6 +22,7 @@ public class FacebookShare {
     String mContentType;
     ArrayList<String> mContent;
     List<SharePhoto> listPhoto = new ArrayList<>();
+    public static int FB_REQ_CODE = 64207;
 
     public FacebookShare(Activity context, ArrayList<String> content, String contenttype) {
         mContext = context;

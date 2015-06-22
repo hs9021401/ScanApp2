@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.foxlinkimage.fit.ShareUtils.DropboxShare;
@@ -43,9 +44,13 @@ public class FolderActivity extends ActionBarActivity {
         setContentView(R.layout.activity_folder);
         setupComponent();
 
-        // 初始化分享功能
-        dropboxShare = new DropboxShare(getApplicationContext(), mFolderAdapter.getSelectedFolder(), "FOLDER");
-        facebookShare = new FacebookShare(FolderActivity.this, mFolderAdapter.getSelectedFolder(), "FOLDER");
+        if (mFolderAdapter == null) {
+            Log.d("TAG", "mFolderAdapter is null");
+        } else {
+            // 初始化分享功能
+            dropboxShare = new DropboxShare(getApplicationContext(), mFolderAdapter.getSelectedFolder(), "FOLDER");
+            facebookShare = new FacebookShare(FolderActivity.this, mFolderAdapter.getSelectedFolder(), "FOLDER");
+        }
     }
 
     void setupComponent() {
@@ -124,6 +129,7 @@ public class FolderActivity extends ActionBarActivity {
                     break;
                 case R.id.action_dropbox:
                     Log.d("TAG", "Dropbox分享按下");
+                    Toast.makeText(FolderActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
                     dropboxShare.Authenticate();
                     dropboxShare.Share();
                     IsShare = true;
@@ -148,6 +154,4 @@ public class FolderActivity extends ActionBarActivity {
             mFolderAdapter.notifyDataSetChanged();
         }
     }
-
-
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.foxlinkimage.fit.ShareUtils.DropboxShare;
@@ -94,7 +95,7 @@ public class GalleryActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult");
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && requestCode != FacebookShare.FB_REQ_CODE) {
             Bitmap bmp;
             bmp = BitmapFactory.decodeFile(strProcessCropImgPath.replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath));
             FileOutputStream fos = null;
@@ -122,8 +123,8 @@ public class GalleryActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mGalleryAdapter != null)
-            dropboxShare.Authenticate();
+//        if(mGalleryAdapter != null)
+//            dropboxShare.Authenticate();
         Log.d("TAG", "onResume()");
     }
 
@@ -170,6 +171,7 @@ public class GalleryActivity extends ActionBarActivity {
 
                 case R.id.action_dropbox:
                     Log.d("TAG", "Dropbox分享按下");
+                    Toast.makeText(GalleryActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
                     dropboxShare.Share();
                     IsShare = true;
                     actionMode.finish();
