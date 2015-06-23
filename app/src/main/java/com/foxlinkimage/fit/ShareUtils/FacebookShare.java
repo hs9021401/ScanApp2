@@ -39,7 +39,7 @@ public class FacebookShare {
         if (mContentType.equals("FOLDER")) {
             for (int i = 0; i < mContent.size(); i++) {
                 ArrayList<File> files = FileUtils.getFiles(mContent.get(i).replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath));
-                for (int j = 0; j < files.size(); j++) {
+                for (int j = 0; j < (files != null ? files.size() : 0); j++) {
                     Bitmap bmp = BitmapFactory.decodeFile(files.get(j).getAbsolutePath());
                     SharePhoto photo = new SharePhoto.Builder().setBitmap(bmp).build();
                     listPhoto.add(photo);
@@ -48,7 +48,7 @@ public class FacebookShare {
         } else if (mContentType.equals("FILE")) {
             for (int i = 0; i < mContent.size(); i++) {
                 String photo_path = mContent.get(i).replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath);
-                Bitmap bmp = BitmapFactory.decodeFile(photo_path);
+                Bitmap bmp = BitmapFactory.decodeFile(photo_path);  //20150623 發現若插入過多圖片會導致OOM
                 SharePhoto photo = new SharePhoto.Builder().setBitmap(bmp).build();
                 listPhoto.add(photo);
             }

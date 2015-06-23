@@ -28,6 +28,7 @@
 
     <string name="facebook">Facebook</string>
     <string name="dropbox">Dropbox</string>
+    <string name="googleplus">Google+</string>
 
     <!--Setting頁面-->
     <string name="IP">IP Address</string>
@@ -110,5 +111,8 @@
         <item>600</item>
         <item>1200</item>
     </string-array>
+
+    <string name="app_id">489047957920987</string>
+
 
 </resources>

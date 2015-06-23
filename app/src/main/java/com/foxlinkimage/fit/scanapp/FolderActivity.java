@@ -121,12 +121,13 @@ public class FolderActivity extends ActionBarActivity {
                         mFolderAdapter.SelectAll();
                     }
                     mFolderAdapter.notifyDataSetChanged();
-
                     break;
+
                 case R.id.action_facebook:
                     Log.d("TAG", "facebook分享按下");
                     facebookShare.Share();
                     break;
+
                 case R.id.action_dropbox:
                     Log.d("TAG", "Dropbox分享按下");
                     Toast.makeText(FolderActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
@@ -135,6 +136,11 @@ public class FolderActivity extends ActionBarActivity {
                     IsShare = true;
                     actionMode.finish();
                     break;
+
+                case R.id.action_googleplus:
+
+                    break;
+
                 case R.id.action_delete:
                     Log.d("TAG", "刪除按下");
                     FileUtils.deleteFolder(mFolderAdapter);

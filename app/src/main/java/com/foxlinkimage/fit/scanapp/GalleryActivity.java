@@ -26,15 +26,16 @@ import java.util.ArrayList;
 
 import eu.janmuller.android.simplecropimage.CropImage;
 
-
 public class GalleryActivity extends ActionBarActivity {
     GridView gvGallery;
     GalleryAdapter mGalleryAdapter;
     static int screenWidth;
     String strProcessCropImgPath;
+    Boolean IsShare;
+
     DropboxShare dropboxShare;
     FacebookShare facebookShare;
-    Boolean IsShare;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +176,12 @@ public class GalleryActivity extends ActionBarActivity {
                     dropboxShare.Share();
                     IsShare = true;
                     actionMode.finish();
+                    break;
+
+                case R.id.action_googleplus:
+//                    googleplusShare.Share();
+//                    IsShare = true;
+//                    actionMode.finish();
                     break;
 
                 case R.id.action_delete:

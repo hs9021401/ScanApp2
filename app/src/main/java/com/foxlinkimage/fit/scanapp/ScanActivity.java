@@ -63,7 +63,6 @@ public class ScanActivity extends Activity {
 
     private ImageView imgScanAnim;
     private Button btnCancelScan;
-    private ObjectAnimator objectAnimator;
     public static ProgressDialog PDialog;
 
     @Override
@@ -234,7 +233,7 @@ public class ScanActivity extends Activity {
         int screenWidth = dm.widthPixels;
 
         //過場動畫
-        objectAnimator = ObjectAnimator.ofFloat(imgScanAnim, "X", -screenWidth, screenWidth);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imgScanAnim, "X", -screenWidth, screenWidth);
         objectAnimator.setDuration(5000);
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);

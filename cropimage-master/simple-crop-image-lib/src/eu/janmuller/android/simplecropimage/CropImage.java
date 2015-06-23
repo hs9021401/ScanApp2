@@ -58,39 +58,39 @@ public class CropImage extends MonitoredActivity {
 
     final int IMAGE_MAX_SIZE = 1024;
 
-    private static final String TAG                    = "CropImage";
-    public static final  String IMAGE_PATH             = "image-path";
-    public static final  String SCALE                  = "scale";
-    public static final  String ORIENTATION_IN_DEGREES = "orientation_in_degrees";
-    public static final  String ASPECT_X               = "aspectX";
-    public static final  String ASPECT_Y               = "aspectY";
-    public static final  String OUTPUT_X               = "outputX";
-    public static final  String OUTPUT_Y               = "outputY";
-    public static final  String SCALE_UP_IF_NEEDED     = "scaleUpIfNeeded";
-    public static final  String CIRCLE_CROP            = "circleCrop";
-    public static final  String RETURN_DATA            = "return-data";
-    public static final  String RETURN_DATA_AS_BITMAP  = "data";
-    public static final  String ACTION_INLINE_DATA     = "inline-data";
+    private static final String TAG = "CropImage";
+    public static final String IMAGE_PATH = "image-path";
+    public static final String SCALE = "scale";
+    public static final String ORIENTATION_IN_DEGREES = "orientation_in_degrees";
+    public static final String ASPECT_X = "aspectX";
+    public static final String ASPECT_Y = "aspectY";
+    public static final String OUTPUT_X = "outputX";
+    public static final String OUTPUT_Y = "outputY";
+    public static final String SCALE_UP_IF_NEEDED = "scaleUpIfNeeded";
+    public static final String CIRCLE_CROP = "circleCrop";
+    public static final String RETURN_DATA = "return-data";
+    public static final String RETURN_DATA_AS_BITMAP = "data";
+    public static final String ACTION_INLINE_DATA = "inline-data";
 
     // These are various options can be specified in the intent.
-    private       Bitmap.CompressFormat mOutputFormat    = Bitmap.CompressFormat.JPEG;
-    private       Uri                   mSaveUri         = null;
-    private       boolean               mDoFaceDetection = true;
-    private       boolean               mCircleCrop      = false;
-    private final Handler               mHandler         = new Handler();
+    private Bitmap.CompressFormat mOutputFormat = Bitmap.CompressFormat.JPEG;
+    private Uri mSaveUri = null;
+    private boolean mDoFaceDetection = true;
+    private boolean mCircleCrop = false;
+    private final Handler mHandler = new Handler();
 
-    private int             mAspectX;
-    private int             mAspectY;
-    private int             mOutputX;
-    private int             mOutputY;
-    private boolean         mScale;
-    private CropImageView   mImageView;
+    private int mAspectX;
+    private int mAspectY;
+    private int mOutputX;
+    private int mOutputY;
+    private boolean mScale;
+    private CropImageView mImageView;
     private ContentResolver mContentResolver;
-    private Bitmap          mBitmap;
-    private String          mImagePath;
+    private Bitmap mBitmap;
+    private String mImagePath;
 
-    boolean       mWaitingToPick; // Whether we are wait the user to pick a face.
-    boolean       mSaving;  // Whether the "save" button is already clicked.
+    boolean mWaitingToPick; // Whether we are wait the user to pick a face.
+    boolean mSaving;  // Whether the "save" button is already clicked.
     HighlightView mCrop;
 
     // These options specifiy the output image size and whether we should
@@ -119,9 +119,9 @@ public class CropImage extends MonitoredActivity {
 
             if (extras.getString(CIRCLE_CROP) != null) {
 
-        	if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-            		mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        	}
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                    mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                }
 
                 mCircleCrop = true;
                 mAspectX = 1;
@@ -191,7 +191,7 @@ public class CropImage extends MonitoredActivity {
                         mBitmap = Util.rotateImage(mBitmap, -90);
                         RotateBitmap rotateBitmap = new RotateBitmap(mBitmap);
                         mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
-                        mRunFaceDetection.run();
+//                        mRunFaceDetection.run();
                     }
                 });
 
@@ -202,7 +202,7 @@ public class CropImage extends MonitoredActivity {
                         mBitmap = Util.rotateImage(mBitmap, 90);
                         RotateBitmap rotateBitmap = new RotateBitmap(mBitmap);
                         mImageView.setImageRotateBitmapResetBase(rotateBitmap, true);
-                        mRunFaceDetection.run();
+//                        mRunFaceDetection.run();
                     }
                 });
         startFaceDetection();
@@ -528,22 +528,28 @@ public class CropImage extends MonitoredActivity {
             Rect imageRect = new Rect(0, 0, width, height);
 
             // make the default size about 4/5 of the width or height
-            int cropWidth = Math.min(width, height) * 4 / 5;
-            int cropHeight = cropWidth;
+//            int cropWidth = Math.min(width, height) * 4 / 5;
+//            int cropHeight = cropWidth;
 
-            if (mAspectX != 0 && mAspectY != 0) {
+            int cropWidth = width-10;
+            int cropHeight = height;
 
-                if (mAspectX > mAspectY) {
 
-                    cropHeight = cropWidth * mAspectY / mAspectX;
-                } else {
+//            if (mAspectX != 0 && mAspectY != 0) {
+//
+//                if (mAspectX > mAspectY) {
+//
+//                    cropHeight = cropWidth * mAspectY / mAspectX;
+//                } else {
+//
+//                    cropWidth = cropHeight * mAspectX / mAspectY;
+//                }
+//            }
 
-                    cropWidth = cropHeight * mAspectX / mAspectY;
-                }
-            }
-
-            int x = (width - cropWidth) / 2;
-            int y = (height - cropHeight) / 2;
+//            int x = (width - cropWidth) / 2;
+//            int y = (height - cropHeight) / 2
+            int x = 5;
+            int y = 0;
 
             RectF cropRect = new RectF(x, y, x + cropWidth, y + cropHeight);
             hv.setup(mImageMatrix, imageRect, cropRect, mCircleCrop,
@@ -615,7 +621,7 @@ public class CropImage extends MonitoredActivity {
         }
     };
 
-    public static final int NO_STORAGE_ERROR  = -1;
+    public static final int NO_STORAGE_ERROR = -1;
     public static final int CANNOT_STAT_ERROR = -2;
 
     public static void showStorageToast(Activity activity) {
@@ -654,14 +660,13 @@ public class CropImage extends MonitoredActivity {
             /*if (!ImageManager.hasStorage()) {
                 return NO_STORAGE_ERROR;
             } else {*/
-        	String storageDirectory = "";
-        	String state = Environment.getExternalStorageState();
-        	if (Environment.MEDIA_MOUNTED.equals(state)) {
-        		storageDirectory = Environment.getExternalStorageDirectory().toString();
-        	}
-        	else {
-        		storageDirectory = activity.getFilesDir().toString();
-        	}
+            String storageDirectory = "";
+            String state = Environment.getExternalStorageState();
+            if (Environment.MEDIA_MOUNTED.equals(state)) {
+                storageDirectory = Environment.getExternalStorageDirectory().toString();
+            } else {
+                storageDirectory = activity.getFilesDir().toString();
+            }
             StatFs stat = new StatFs(storageDirectory);
             float remaining = ((float) stat.getAvailableBlocks()
                     * (float) stat.getBlockSize()) / 400000F;

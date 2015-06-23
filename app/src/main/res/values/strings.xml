@@ -25,8 +25,9 @@
     <string name="empty">資料夾為空</string>
     <string name="selectall">全選</string>
 
-    <string name="facebook">臉書</string>
+    <string name="facebook">Facebook</string>
     <string name="dropbox">Dropbox</string>
+    <string name="googleplus">Google+</string>
 
     <!--Setting頁面-->
     <string name="IP">IP位址</string>
