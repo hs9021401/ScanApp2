@@ -30,6 +30,11 @@
     <string name="dropbox">Dropbox</string>
     <string name="googleplus">Google+</string>
 
+    <string name="uploading">Uploading…</string>
+    <string name="uploadcomplete">Upload complete</string>
+    <string name="sharetodropbox">Share to dropbox</string>
+    <string name="returntofoldermsg">Return to Folder page</string>
+
     <!--Setting頁面-->
     <string name="IP">IP Address</string>
     <string name="searchdevice">Search Device</string>

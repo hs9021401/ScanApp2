@@ -10,7 +10,6 @@ import android.os.Environment;
 public class PreferenceHelper {
     public final static String strPreferenceListName = "MY_PREFERENCE";
     public final static String key_IP = "SCAN_IP";
-//    public final static String key_INTENTS = "SCAN_INTENTS";
     public final static String key_DOCUMENT_FORMAT = "SCAN_DOCUMENT_FORMAT";
     public final static String key_INPUT_SOURCE = "SCAN_INPUT_SOURCE";
     public final static String key_COLOR_MODE = "SCAN_COLOR_MODE";

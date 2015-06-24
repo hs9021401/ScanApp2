@@ -29,6 +29,11 @@
     <string name="dropbox">Dropbox</string>
     <string name="googleplus">Google+</string>
 
+    <string name="uploading">上傳中…</string>
+    <string name="uploadcomplete">上傳完畢</string>
+    <string name="sharetodropbox">分享至Dropbox</string>
+    <string name="returntofoldermsg">點選回到資料夾頁面</string>
+
     <!--Setting頁面-->
     <string name="IP">IP位址</string>
     <string name="searchdevice">搜尋裝置</string>

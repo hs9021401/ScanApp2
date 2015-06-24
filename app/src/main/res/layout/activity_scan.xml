@@ -14,7 +14,7 @@
         android:id="@+id/scananim"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_weight="0.9"
         android:contentDescription="images" />
 
 
@@ -29,9 +29,10 @@
 
 
     <ScrollView
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.1">
 
         <TextView
             android:id="@+id/response"

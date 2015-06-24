@@ -124,8 +124,8 @@ public class GalleryActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        if(mGalleryAdapter != null)
-//            dropboxShare.Authenticate();
+        if(mGalleryAdapter != null)
+            dropboxShare.Resume();
         Log.d("TAG", "onResume()");
     }
 

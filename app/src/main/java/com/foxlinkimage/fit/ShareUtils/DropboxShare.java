@@ -3,16 +3,12 @@ package com.foxlinkimage.fit.ShareUtils;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.android.AndroidAuthSession;
-import com.dropbox.client2.android.AuthActivity;
 import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
@@ -55,65 +51,27 @@ public class DropboxShare {
         AppKeyPair appKeyPair = new AppKeyPair(APP_KEY, APP_SECRET);
         session = new AndroidAuthSession(appKeyPair);
         loadAuth(session);
-        mApi = new DropboxAPI<AndroidAuthSession>(session);
-
-        checkAppKeySetup();
-        Boolean b = mApi.getSession().isLinked();
-        Log.d("TAG", "LOGGED is " + b);
     }
 
     private void loadAuth(AndroidAuthSession session) {
-        SharedPreferences prefs =   mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
+        SharedPreferences prefs = mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
         String key = prefs.getString(ACCESS_KEY_NAME, null);
         String secret = prefs.getString(ACCESS_SECRET_NAME, null);
+        Log.d("AUTHTOKEN", "Load: " + secret);
         if (key == null || secret == null || key.length() == 0 || secret.length() == 0) return;
 
         if (key.equals("oauth2:")) {
             // If the key is set to "oauth2:", then we can assume the token is for OAuth 2.
             session.setOAuth2AccessToken(secret);
         } else {
-            // Still support using old OAuth 1 tokens.
             session.setAccessTokenPair(new AccessTokenPair(key, secret));
-        }
-    }
-
-    private void checkAppKeySetup() {
-        // Check to make sure that we have a valid app key
-        if (APP_KEY.startsWith("CHANGE") ||
-                APP_SECRET.startsWith("CHANGE")) {
-            return;
-        }
-
-        // Check if the app has set up its manifest properly.
-        Intent testIntent = new Intent(Intent.ACTION_VIEW);
-        String scheme = "db-" + APP_KEY;
-        String uri = scheme + "://" + AuthActivity.AUTH_VERSION + "/test";
-        testIntent.setData(Uri.parse(uri));
-        PackageManager pm = mContext.getPackageManager();
-        if (0 == pm.queryIntentActivities(testIntent, 0).size()) {
-            Log.d("TAG", "URL scheme in your app's " +
-                    "manifest is not set up correctly. You should have a " +
-                    "com.dropbox.client2.android.AuthActivity with the " +
-                    "scheme: " + scheme);
-        }
-    }
-
-    public void Authenticate() {
-        if (session.authenticationSuccessful()) {
-            try {
-                session.finishAuthentication();
-                storeAuth(session);
-            } catch (IllegalStateException e) {
-                Log.d("TAG", "Error authenticating", e);
-            }
-        } else {
-            mApi.getSession().startOAuth2Authentication(mContext);
         }
     }
 
     private void storeAuth(AndroidAuthSession session) {
         // Store the OAuth 2 access token, if there is one.
         String oauth2AccessToken = session.getOAuth2AccessToken();
+        Log.d("AUTHTOKEN", "Store: " + oauth2AccessToken);
         if (oauth2AccessToken != null) {
             SharedPreferences prefs = mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
             SharedPreferences.Editor edit = prefs.edit();
@@ -122,26 +80,35 @@ public class DropboxShare {
             edit.apply();
             return;
         }
-        // Store the OAuth 1 access token, if there is one.  This is only necessary if
-        // you're still using OAuth 1.
-        AccessTokenPair oauth1AccessToken = session.getAccessTokenPair();
-        if (oauth1AccessToken != null) {
-            SharedPreferences prefs = mContext.getSharedPreferences(DropboxShare.ACCOUNT_PREFS_NAME, 0);
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putString(DropboxShare.ACCESS_KEY_NAME, oauth1AccessToken.key);
-            edit.putString(DropboxShare.ACCESS_SECRET_NAME, oauth1AccessToken.secret);
-            edit.apply();
+    }
+
+
+    public void Resume() {
+        if (session.authenticationSuccessful()) {
+            try {
+                session.finishAuthentication();
+                storeAuth(session);
+            } catch (IllegalStateException e) {
+                Log.d("TAG", "Error authenticating", e);
+            }
+        } else {
+            //20150624 修改原本的方式, 改採抓取已儲存的token進行認證
+            mApi = new DropboxAPI<AndroidAuthSession>(session);
+            SharedPreferences prefs = mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
+            String secret = prefs.getString(ACCESS_SECRET_NAME, null);
+            String key = prefs.getString(ACCESS_KEY_NAME, null);
+
+            if (key == null || secret == null || key.length() == 0 || secret.length() == 0) {
+                mApi.getSession().startOAuth2Authentication(mContext);
+            } else {
+                session.setOAuth2AccessToken(secret);
+            }
         }
     }
 
     public void Share() {
-        if (session.authenticationSuccessful()) {
-            Log.d("TAG", "authenticate pass");
-            UploadContentTask uploadContentTask = new UploadContentTask();
-            uploadContentTask.execute();
-        } else {
-            Log.d("TAG", "authenticate fail");
-        }
+        UploadContentTask uploadContentTask = new UploadContentTask();
+        uploadContentTask.execute();
     }
 
     public class UploadContentTask extends AsyncTask<Void, Integer, Void> {
@@ -151,14 +118,14 @@ public class DropboxShare {
 
             notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             builder = new Notification.Builder(mContext);
-//            PendingIntent contentIndent = PendingIntent.getActivity(mContext, 0, new Intent(mContext, GalleryActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+//            PendingIntent contentIndent = PendingIntent.getActivity(mContext, 0, new Intent(mContext, FolderActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setSmallIcon(R.mipmap.ic_launcher)
                     .setWhen(System.currentTimeMillis())
                     .setAutoCancel(true)
-                    .setContentTitle("分享至Dropbox")
-                    .setContentText("上傳檔案中....")
+                    .setContentTitle(mContext.getResources().getString(R.string.sharetodropbox))
+                    .setContentText(mContext.getResources().getString(R.string.uploading))
                     .setProgress(100, 0, false);
-//            .setContentIntent(contentIndent)
+//                            .setContentIntent(contentIndent);
             Notification notification = builder.build();
             notificationManager.notify(111, notification);
         }
@@ -194,8 +161,8 @@ public class DropboxShare {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            builder.setContentText("上傳完畢")
-                    .setContentTitle("分享至Dropbox完畢");
+            builder.setContentText(mContext.getResources().getString(R.string.returntofoldermsg))
+                    .setContentTitle(mContext.getResources().getString(R.string.uploadcomplete));
             Notification notification = builder.build();
             notificationManager.notify(111, notification);
             super.onPostExecute(aVoid);
@@ -217,8 +184,8 @@ public class DropboxShare {
         }
     }
 
-    public DropboxAPI<AndroidAuthSession> getmApi() {
-        return mApi;
-    }
+//    public DropboxAPI<AndroidAuthSession> getmApi() {
+//        return mApi;
+//    }
 
 }

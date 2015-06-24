@@ -21,17 +21,10 @@ import java.util.ArrayList;
 
 
 public class FolderActivity extends ActionBarActivity {
-    ListView lvFolders;     //ListView控件
+    ListView lvFolders;
     Boolean IsShare;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mFolderAdapter != null)
-            dropboxShare.Authenticate();
-    }
-
-    TextView tvLocation;    //顯示目前所在的資料夾位置
+    TextView tvLocation;
     ArrayList<File> alFolders;
     FolderAdapter mFolderAdapter;
     DropboxShare dropboxShare;
@@ -90,6 +83,14 @@ public class FolderActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (mFolderAdapter != null)
+            dropboxShare.Resume();
+    }
+
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }
@@ -131,7 +132,6 @@ public class FolderActivity extends ActionBarActivity {
                 case R.id.action_dropbox:
                     Log.d("TAG", "Dropbox分享按下");
                     Toast.makeText(FolderActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
-                    dropboxShare.Authenticate();
                     dropboxShare.Share();
                     IsShare = true;
                     actionMode.finish();

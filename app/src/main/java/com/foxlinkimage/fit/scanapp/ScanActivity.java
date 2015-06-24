@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Xml;
@@ -59,6 +58,7 @@ public class ScanActivity extends Activity {
     private final int REQ_CODE = 1122334455;
     private static final int HANDLE_SCAN_MSG_CODE = 11274485;
     private static final int HANDLE_ANIMSTOP_MSG_CODE = 643235;
+    private static final int HANDLE_TIMEOUT_MSG_CODE = 478421;
 
 
     private ImageView imgScanAnim;
@@ -68,6 +68,10 @@ public class ScanActivity extends Activity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+
+         //get setting value
+        initialDefaultValue();
+
         bCancelScan = false;
         bIsScanning = false;
         doGetStatus();
@@ -92,9 +96,6 @@ public class ScanActivity extends Activity {
                 PDialog.show();
             }
         });
-
-        //get setting value
-        initialDefaultValue();
     }
 
     private void initialDefaultValue() {
@@ -124,7 +125,7 @@ public class ScanActivity extends Activity {
 
         @Override
         public void handleMessage(Message msg) {
-            ScanActivity activity = mActivity.get();
+            final ScanActivity activity = mActivity.get();
 
             if (activity != null) {
                 switch (msg.what) {
@@ -157,6 +158,19 @@ public class ScanActivity extends Activity {
                         PDialog.dismiss();
                         break;
 
+                    case HANDLE_TIMEOUT_MSG_CODE:
+                        new AlertDialog.Builder(activity)
+                                .setTitle("與掃描器連線逾時")
+                                .setMessage("即將跳轉設定頁面, 請檢查裝置IP設定")
+                                .setPositiveButton(activity.getApplicationContext().getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent it = new Intent(activity.getApplicationContext(), SettingsActivity.class);
+                                        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        activity.getApplicationContext().startActivity(it);
+                                    }
+                                }).show();
+                        break;
 
                 }
 
@@ -176,6 +190,8 @@ public class ScanActivity extends Activity {
                 URL url = new URL("http://" + strIP + "/eSCL/ScannerStatus");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
+                conn.setConnectTimeout(5000);
+                conn.setReadTimeout(5000);
                 int responseCode = conn.getResponseCode();
                 if (responseCode == 200) {
                     InputStream is = new BufferedInputStream(conn.getInputStream());
@@ -215,14 +231,15 @@ public class ScanActivity extends Activity {
                     handler.sendMessage(msg);
 
                 } else {
-                    Log.d("TAG", "Response Code: " + String.valueOf(responseCode) + "請檢查網路連線");
-                    Intent it = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                    startActivity(it);
+                    Log.d("TAG", "Response Code: " + String.valueOf(responseCode));
                 }
 
             } catch (IOException io) {
                 Log.d("TAG", io.getMessage());
-                io.printStackTrace();
+
+                Message msg = new Message();
+                msg.what = HANDLE_TIMEOUT_MSG_CODE;
+                handler.sendMessage(msg);
             }
         }
     };
