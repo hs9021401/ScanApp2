@@ -41,9 +41,9 @@ public class DropboxShare {
     PreferenceHelper mPreferenceHelper;
 
 
-    public DropboxShare(Context context) {
-        new DropboxShare(context, null, null);
-    }
+//    public DropboxShare(Context context) {
+//        new DropboxShare(context, null, null);
+//    }
 
     public DropboxShare(Context context, ArrayList<String> content, String contenttype) {
         mContext = context;
@@ -60,7 +60,7 @@ public class DropboxShare {
     private void loadAuth(AndroidAuthSession session) {
         String key = mPreferenceHelper.getPreferenceString(ACCESS_KEY_NAME);
         String secret = mPreferenceHelper.getPreferenceString(ACCESS_SECRET_NAME);
-        if (key == null || secret == null || key.length() == 0 || secret.length() == 0) return;
+        if (key.equals("DEFAULT_NULL") || secret.equals("DEFAULT_NULL") || key.length() == 0 || secret.length() == 0) return;
 
         if (key.equals("oauth2:")) {
             session.setOAuth2AccessToken(secret);
@@ -102,6 +102,7 @@ public class DropboxShare {
 
     public void UnConnect()
     {
+        mApi = new DropboxAPI<AndroidAuthSession>(session);
         mApi.getSession().unlink();
         mPreferenceHelper.clearPreference(ACCESS_KEY_NAME);
         mPreferenceHelper.clearPreference(ACCESS_SECRET_NAME);

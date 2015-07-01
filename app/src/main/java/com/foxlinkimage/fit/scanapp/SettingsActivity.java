@@ -99,7 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
         tgConnectDropbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                DropboxShare mDropboxShare = new DropboxShare(getApplicationContext());
+                DropboxShare mDropboxShare = new DropboxShare(getApplicationContext(),null,null);
                 if(isChecked)
                 {
                     //連結dropbox
