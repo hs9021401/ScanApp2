@@ -9,6 +9,8 @@
     <string name="app_name">Scan App</string>
     <string name="action_settings">Settings</string>
 
+    <string name="starttouse">Start to use</string>
+
     <string name="OK">OK</string>
     <string name="NO">NO</string>
     <string name="Cancel">Canecel</string>
@@ -16,6 +18,8 @@
     <string name="cancelscan">Scan Canecel</string>
     <string name="cancelscanconfirm">Scanning. Are you sure terminate the scan job and return to main page?</string>
     <string name="waitmessage">Wait for a while....</string>
+    <string name="nopaperinfeeder">Please place the ducuments into feeder</string>
+    <string name="devicebusy">Device is busy now, please try it later</string>
 
     <string name="scan">Scan</string>
     <string name="folder">Folder</string>
@@ -33,7 +37,7 @@
     <string name="uploading">Uploading…</string>
     <string name="uploadcomplete">Upload complete</string>
     <string name="sharetodropbox">Share to dropbox</string>
-    <string name="returntofoldermsg">Return to Folder page</string>
+    <string name="returntofolder">Return to Folder page</string>
 
     <!--Setting頁面-->
     <string name="IP">IP Address</string>
@@ -41,8 +45,8 @@
     <string name="launch_advance_setting">Advanced options</string>
     <string name="on">On</string>
     <string name="off">Off</string>
-
-
+    <string name="connected">Connected</string>
+    <string name="disconnect">Disconnect</string>
     <string name="documentformat">Document Format</string>
     <string name="inputsource">Input Source</string>
     <string name="colormode">Color Mode</string>
@@ -51,6 +55,8 @@
     <string name="binaryrendering">Binary Rendering</string>
     <string name="duplex">Single/Duplex</string>
     <string name="discreteresolution">Resolution</string>
+    <string name="connecttodropbox">Connect to Dropbox</string>
+    <string name="connecttoevernote">Connect to Evernote</string>
 
     <!--Preference-->
     <string name="PREFERENCES_NAME">myPreference</string>

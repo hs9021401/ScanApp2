@@ -85,6 +85,7 @@ public class FolderActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //TODO: 判斷使用者是否有安裝dropbox
         if (mFolderAdapter != null)
             dropboxShare.Resume();
     }

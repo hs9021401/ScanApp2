@@ -100,17 +100,17 @@ public class ScanActivity extends Activity {
 
     private void initialDefaultValue() {
         PreferenceHelper mPreferenceHelper = new PreferenceHelper(getApplicationContext());
-        strIP = mPreferenceHelper.getPreference(PreferenceHelper.key_IP);
+        strIP = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_IP);
         strRootFolder = PreferenceHelper.strDefaultSaveFolderPath;
         strRootThumbnailsFolder = PreferenceHelper.strDefaultSaveFolderThumbnailsPath;
-        strDocumentFormat = mPreferenceHelper.getPreference(PreferenceHelper.key_DOCUMENT_FORMAT);
-        strInputSource = mPreferenceHelper.getPreference(PreferenceHelper.key_INPUT_SOURCE);
-        strColorMode = mPreferenceHelper.getPreference(PreferenceHelper.key_COLOR_MODE);
-        strColorSpace = mPreferenceHelper.getPreference(PreferenceHelper.key_COLOR_SPACE);
-        strCcdChannel = mPreferenceHelper.getPreference(PreferenceHelper.key_CCD_CHANNEL);
-        strBinaryRendering = mPreferenceHelper.getPreference(PreferenceHelper.key_BINARY_RENDERING);
-        strDuplex = mPreferenceHelper.getPreference(PreferenceHelper.key_DUPLEX);
-        strDiscreteResolution = mPreferenceHelper.getPreference(PreferenceHelper.key_DISCRETE_RESOLUTION);
+        strDocumentFormat = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_DOCUMENT_FORMAT);
+        strInputSource = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_INPUT_SOURCE);
+        strColorMode = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_COLOR_MODE);
+        strColorSpace = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_COLOR_SPACE);
+        strCcdChannel = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_CCD_CHANNEL);
+        strBinaryRendering = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_BINARY_RENDERING);
+        strDuplex = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_DUPLEX);
+        strDiscreteResolution = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_DISCRETE_RESOLUTION);
     }
 
 
@@ -142,14 +142,14 @@ public class ScanActivity extends Activity {
                             if (activity.strInputSource.equals("Feeder")) //送紙方式, 檢查是否有放紙進去
                             {
                                 if (activity.device_AdfState.equals("ScannerAdfEmpty")) {
-                                    Toast.makeText(activity.getApplicationContext(), "You didn't place document into feeder...\n", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.nopaperinfeeder) , Toast.LENGTH_SHORT).show();
                                     activity.finish();
                                 } else
                                     activity.doScan();
                             } else if (activity.strInputSource.equals("Platen"))  //flatback
                                 activity.doScan();
                         } else {
-                            Toast.makeText(activity.getApplicationContext(), "Device is busy now, please try it later...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.devicebusy), Toast.LENGTH_SHORT).show();
                             activity.finish();
                         }
                         break;

@@ -8,31 +8,38 @@
     <string name="app_name">掃描軟體</string>
     <string name="action_settings">設定</string>
 
+    <string name="starttouse">開始使用</string>
+
+    <!--Scan頁面-->
     <string name="OK">好</string>
     <string name="NO">否</string>
     <string name="Cancel">取消</string>
     <string name="canceling">取消中</string>
     <string name="cancelscan">取消掃描</string>
     <string name="cancelscanconfirm">正在掃描中, 確定要取消掃描回主頁嗎?</string>
-    <string name="waitmessage">請稍等一會....</string>
+    <string name="waitmessage">請稍等…</string>
+    <string name="nopaperinfeeder">請放入紙張於feeder</string>
+    <string name="devicebusy">裝置忙碌中, 請稍候再試</string>
 
+    <!--主頁面-->
     <string name="scan">掃描</string>
     <string name="folder">資料夾</string>
     <string name="setting">設定</string>
 
+    <!--ActionMode-->
     <string name="share">分享</string>
     <string name="delete">刪除</string>
     <string name="empty">資料夾為空</string>
     <string name="selectall">全選</string>
 
+    <!--分享-->
     <string name="facebook">Facebook</string>
     <string name="dropbox">Dropbox</string>
     <string name="googleplus">Google+</string>
-
     <string name="uploading">上傳中…</string>
     <string name="uploadcomplete">上傳完畢</string>
     <string name="sharetodropbox">分享至Dropbox</string>
-    <string name="returntofoldermsg">點選回到資料夾頁面</string>
+    <string name="returntofolder">點選回到資料夾頁面</string>
 
     <!--Setting頁面-->
     <string name="IP">IP位址</string>
@@ -40,8 +47,8 @@
     <string name="launch_advance_setting">進階參數選項</string>
     <string name="on">開啟</string>
     <string name="off">關閉</string>
-
-
+    <string name="connected">已連接</string>
+    <string name="disconnect">未連接</string>
     <string name="documentformat">掃描格式</string>
     <string name="inputsource">掃描來源</string>
     <string name="colormode">色彩模式</string>
@@ -50,6 +57,8 @@
     <string name="binaryrendering">二進制渲染</string>
     <string name="duplex">雙面列印</string>
     <string name="discreteresolution">掃描解析度</string>
+    <string name="connecttodropbox">連結至Dropbox</string>
+    <string name="connecttoevernote">連結至Evernote</string>
 
     <!--Preference-->
     <string name="PREFERENCES_NAME">myPreference</string>
@@ -117,5 +126,8 @@
     </string-array>
 
     <string name="app_id">489047957920987</string>
+    <string name="title_activity_instructment">InstructmentActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

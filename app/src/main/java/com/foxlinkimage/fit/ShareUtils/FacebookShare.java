@@ -48,9 +48,9 @@ public class FacebookShare {
         } else if (mContentType.equals("FILE")) {
             for (int i = 0; i < mContent.size(); i++) {
                 String photo_path = mContent.get(i).replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath);
-                Bitmap bmp = BitmapFactory.decodeFile(photo_path);  //20150623 發現若插入過多圖片會導致OOM
+                Bitmap bmp = BitmapFactory.decodeFile(photo_path);
                 SharePhoto photo = new SharePhoto.Builder().setBitmap(bmp).build();
-                listPhoto.add(photo);
+                listPhoto.add(photo);   //20150623 發現若插入過多圖片會導致OOM
             }
         }
     }

@@ -22,14 +22,14 @@
             android:orientation="horizontal"
             android:weightSum="1.0">
 
-            <com.foxlinkimage.fit.customview.CustomTextView
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.2"
                 android:text="@string/IP" />
 
-            <com.foxlinkimage.fit.customview.CustomEditText
+            <EditText
                 android:id="@+id/IP"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -49,6 +49,30 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                android:text="連到Dropbox" />
+
+            <ToggleButton
+                android:id="@+id/connect_dropbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@drawable/button_bgcolor"
+                android:textColor="#acaae4"
+                android:textOff="@string/disconnect"
+                android:textOn="@string/connected" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +81,33 @@
             android:orientation="horizontal"
             android:weightSum="1.0">
 
-            <com.foxlinkimage.fit.customview.CustomTextView
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                android:text="連到Evernote" />
+
+            <ToggleButton
+                android:id="@+id/connect_evernote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@drawable/button_bgcolor"
+                android:textColor="#acaae4"
+                android:textOff="@string/disconnect"
+                android:textOn="@string/connected" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -71,15 +121,15 @@
                 android:layout_weight="0.4"
                 android:background="@drawable/button_bgcolor"
                 android:textColor="#acaae4"
-                android:textOff="@string/on"
-                android:textOn="@string/off" />
+                android:textOff="@string/off"
+                android:textOn="@string/on" />
         </LinearLayout>
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--掃描參數區塊    -->
+        <!--scan params start    -->
         <LinearLayout
             android:id="@+id/layout_scan_params"
             android:layout_width="match_parent"
@@ -93,15 +143,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/documentformat" />
 
-                <Spinner
-                    android:id="@+id/document_format"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/document_format"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -109,15 +165,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/inputsource" />
 
-                <Spinner
-                    android:id="@+id/input_source"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/input_source"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -125,15 +187,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/colormode" />
 
-                <Spinner
-                    android:id="@+id/color_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/color_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -142,15 +210,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/colorspace" />
 
-                <Spinner
-                    android:id="@+id/color_space"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/color_space"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -158,15 +232,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/ccdchannel" />
 
-                <Spinner
-                    android:id="@+id/ccd_channel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/ccd_channel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -175,15 +255,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/binaryrendering" />
 
-                <Spinner
-                    android:id="@+id/binary_rendering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/binary_rendering"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -191,15 +277,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/duplex" />
 
-                <Spinner
-                    android:id="@+id/duplex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/duplex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -207,19 +299,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.foxlinkimage.fit.customview.CustomTextView
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:text="@string/discreteresolution" />
 
-                <Spinner
-                    android:id="@+id/discrete_resolution"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Spinner
+                        android:id="@+id/discrete_resolution"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
+        <!--scan params end-->
     </ScrollView>
 
 

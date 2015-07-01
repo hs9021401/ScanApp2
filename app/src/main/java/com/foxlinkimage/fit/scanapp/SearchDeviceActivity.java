@@ -72,7 +72,7 @@ public class SearchDeviceActivity extends Activity {
         btnSelDevice_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPreferenceHelper.setPreference(PreferenceHelper.key_IP, strSelectedIP);
+                mPreferenceHelper.setPreferenceString(PreferenceHelper.key_IP, strSelectedIP);
                 finish();
             }
         });

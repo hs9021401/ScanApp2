@@ -1,7 +1,6 @@
 package com.foxlinkimage.fit.scanapp;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -47,13 +46,13 @@ public class MainActivity extends ActionBarActivity{
         btnFolder = (Button)findViewById(R.id.btnFolder);
         btnSettings = (Button)findViewById(R.id.btnSetting);
 
-        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/w2.ttc");    //使用其他字體
-        btnScan.setTypeface(font);
-        btnScan.setTextSize(24.0F);
-        btnFolder.setTypeface(font);
-        btnFolder.setTextSize(24.0F);
-        btnSettings.setTypeface(font);
-        btnSettings.setTextSize(24.0F);
+//        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/w2.ttc");    //使用其他字體
+//        btnScan.setTypeface(font);
+//        btnScan.setTextSize(24.0F);
+//        btnFolder.setTypeface(font);
+//        btnFolder.setTextSize(24.0F);
+//        btnSettings.setTypeface(font);
+//        btnSettings.setTextSize(24.0F);
 
 
         btnScan.setOnClickListener(new View.OnClickListener() {

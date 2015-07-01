@@ -19,18 +19,21 @@ public class PreferenceHelper {
     public final static String key_DUPLEX = "SCAN_DUPLEX";
     public final static String key_DISCRETE_RESOLUTION = "SCAN_DISCRETE_RESOLUTION";
 
+    public final static String key_FIRST_LAUNCH = "FIRST_LAUNCH";
+
     public final static String strDefaultSaveFolderPath = Environment.getExternalStorageDirectory().getPath() + "/FIT";
     public final static String strDefaultSaveFolderThumbnailsPath= Environment.getExternalStorageDirectory().getPath() + "/FIT_thumbnails";
     private Context context;
 
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public PreferenceHelper(Context context)
     {
         this.context = context;
     }
 
-    public String getPreference(String key)
+    public String getPreferenceString(String key)
     {
         String strDefaultValue = "";
         switch(key)
@@ -71,9 +74,30 @@ public class PreferenceHelper {
         return sharedPreferences.getString(key, strDefaultValue);
     }
 
-    public void setPreference(String key, String value) {
+    public Boolean getPreferenceBoolean(String key)
+    {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
+        return sharedPreferences.getBoolean(key, true);
+    }
+
+    public void setPreferenceString(String key, String value) {
         sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
         sharedPreferences.edit().putString(key, value).apply();
+    }
+
+    public void setPreferenceBoolean(String key, Boolean value)
+    {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
+        sharedPreferences.edit().putBoolean(key, value).apply();
+    }
+
+    public void clearPreference(String key)
+    {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
+        editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.clear();
+        editor.apply();
     }
 
 }

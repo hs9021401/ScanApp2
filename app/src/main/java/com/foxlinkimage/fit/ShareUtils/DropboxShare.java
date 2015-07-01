@@ -3,7 +3,6 @@ package com.foxlinkimage.fit.ShareUtils;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,8 +25,6 @@ import java.util.ArrayList;
  */
 public class DropboxShare {
     Context mContext;
-
-    public static final String ACCOUNT_PREFS_NAME = "prefs";
     public static final String ACCESS_KEY_NAME = "ACCESS_KEY";
     public static final String ACCESS_SECRET_NAME = "ACCESS_SECRET";
 
@@ -41,12 +38,19 @@ public class DropboxShare {
     Notification.Builder builder;
     NotificationManager notificationManager;
 
+    PreferenceHelper mPreferenceHelper;
+
+
+    public DropboxShare(Context context) {
+        new DropboxShare(context, null, null);
+    }
 
     public DropboxShare(Context context, ArrayList<String> content, String contenttype) {
         mContext = context;
         mContent = content;
         mContentType = contenttype;
 
+        mPreferenceHelper = new PreferenceHelper(context);
         // We create a new AuthSession so that we can use the Dropbox API.
         AppKeyPair appKeyPair = new AppKeyPair(APP_KEY, APP_SECRET);
         session = new AndroidAuthSession(appKeyPair);
@@ -54,14 +58,11 @@ public class DropboxShare {
     }
 
     private void loadAuth(AndroidAuthSession session) {
-        SharedPreferences prefs = mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
-        String key = prefs.getString(ACCESS_KEY_NAME, null);
-        String secret = prefs.getString(ACCESS_SECRET_NAME, null);
-        Log.d("AUTHTOKEN", "Load: " + secret);
+        String key = mPreferenceHelper.getPreferenceString(ACCESS_KEY_NAME);
+        String secret = mPreferenceHelper.getPreferenceString(ACCESS_SECRET_NAME);
         if (key == null || secret == null || key.length() == 0 || secret.length() == 0) return;
 
         if (key.equals("oauth2:")) {
-            // If the key is set to "oauth2:", then we can assume the token is for OAuth 2.
             session.setOAuth2AccessToken(secret);
         } else {
             session.setAccessTokenPair(new AccessTokenPair(key, secret));
@@ -69,16 +70,10 @@ public class DropboxShare {
     }
 
     private void storeAuth(AndroidAuthSession session) {
-        // Store the OAuth 2 access token, if there is one.
         String oauth2AccessToken = session.getOAuth2AccessToken();
-        Log.d("AUTHTOKEN", "Store: " + oauth2AccessToken);
         if (oauth2AccessToken != null) {
-            SharedPreferences prefs = mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putString(ACCESS_KEY_NAME, "oauth2:");
-            edit.putString(ACCESS_SECRET_NAME, oauth2AccessToken);
-            edit.apply();
-            return;
+            mPreferenceHelper.setPreferenceString(ACCESS_KEY_NAME, "oauth2:");
+            mPreferenceHelper.setPreferenceString(ACCESS_SECRET_NAME, oauth2AccessToken);
         }
     }
 
@@ -94,9 +89,8 @@ public class DropboxShare {
         } else {
             //20150624 修改原本的方式, 改採抓取已儲存的token進行認證
             mApi = new DropboxAPI<AndroidAuthSession>(session);
-            SharedPreferences prefs = mContext.getSharedPreferences(ACCOUNT_PREFS_NAME, 0);
-            String secret = prefs.getString(ACCESS_SECRET_NAME, null);
-            String key = prefs.getString(ACCESS_KEY_NAME, null);
+            String key = mPreferenceHelper.getPreferenceString(ACCESS_KEY_NAME);
+            String secret = mPreferenceHelper.getPreferenceString(ACCESS_SECRET_NAME);
 
             if (key == null || secret == null || key.length() == 0 || secret.length() == 0) {
                 mApi.getSession().startOAuth2Authentication(mContext);
@@ -104,6 +98,13 @@ public class DropboxShare {
                 session.setOAuth2AccessToken(secret);
             }
         }
+    }
+
+    public void UnConnect()
+    {
+        mApi.getSession().unlink();
+        mPreferenceHelper.clearPreference(ACCESS_KEY_NAME);
+        mPreferenceHelper.clearPreference(ACCESS_SECRET_NAME);
     }
 
     public void Share() {
@@ -161,7 +162,7 @@ public class DropboxShare {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            builder.setContentText(mContext.getResources().getString(R.string.returntofoldermsg))
+            builder.setContentText(mContext.getResources().getString(R.string.returntofolder))
                     .setContentTitle(mContext.getResources().getString(R.string.uploadcomplete));
             Notification notification = builder.build();
             notificationManager.notify(111, notification);
