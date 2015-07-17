@@ -22,23 +22,6 @@
         android:id="@+id/action_share"
         android:title="@string/share"
         app:showAsAction="ifRoom|withText">
-        <!--Sub menu for sharing type-->
-        <menu>
-            <item
-                android:id="@+id/action_facebook"
-                android:title="@string/facebook"
-                app:showAsAction="ifRoom|withText" />
-
-            <item
-                android:id="@+id/action_dropbox"
-                android:title="@string/dropbox"
-                app:showAsAction="ifRoom|withText" />
-
-            <item
-                android:id="@+id/action_googleplus"
-                android:title="@string/googleplus"
-                app:showAsAction="ifRoom|withText" />
-        </menu>
     </item>
 
     <item

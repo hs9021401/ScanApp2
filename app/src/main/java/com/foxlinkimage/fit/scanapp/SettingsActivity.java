@@ -13,15 +13,12 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import com.foxlinkimage.fit.ShareUtils.DropboxShare;
 
 
 public class SettingsActivity extends AppCompatActivity {
     EditText edtIP;
-    ToggleButton tgAdvancedOption, tgConnectDropbox, tgConnectEvernote;
+    ToggleButton tgAdvancedOption;
     Button btnSearchDevice;
     Spinner spnDocumentFormat, spnInputSource, spnColorMode, spnColorSpace, spnCcdChannel, spnBinaryRendering, spnDuplex, spnDiscreteResolution;
     PreferenceHelper mPreferenceHelper;
@@ -48,8 +45,6 @@ public class SettingsActivity extends AppCompatActivity {
         edtIP = (EditText) findViewById(R.id.IP);
         btnSearchDevice = (Button) findViewById(R.id.search_device);
         tgAdvancedOption = (ToggleButton) findViewById(R.id.advance_option);
-        tgConnectEvernote = (ToggleButton)findViewById(R.id.connect_evernote);
-        tgConnectDropbox = (ToggleButton)findViewById(R.id.connect_dropbox);
         spnDocumentFormat = (Spinner) findViewById(R.id.document_format);
         spnInputSource = (Spinner) findViewById(R.id.input_source);
         spnColorMode = (Spinner) findViewById(R.id.color_mode);
@@ -59,6 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
         spnDuplex = (Spinner) findViewById(R.id.duplex);
         spnDiscreteResolution = (Spinner) findViewById(R.id.discrete_resolution);
 
+        findViewById(R.id.layout_scan_params).setVisibility(View.GONE);
 
         btnSearchDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
                     mShowAction.setDuration(500);
                     findViewById(R.id.layout_scan_params).startAnimation(mShowAction);
                     findViewById(R.id.layout_scan_params).setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     //隱藏進階設訂區塊的動畫
                     TranslateAnimation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
                             0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
@@ -95,32 +91,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
-
-        tgConnectDropbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                DropboxShare mDropboxShare = new DropboxShare(getApplicationContext(),null,null);
-                if(isChecked)
-                {
-                    //連結dropbox
-                    mDropboxShare.Resume();
-                    Toast.makeText(SettingsActivity.this,"Dropbox connected", Toast.LENGTH_SHORT).show();
-                }else
-                {
-                    mDropboxShare.UnConnect();
-                    Toast.makeText(SettingsActivity.this,"Dropbox is disconnected", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        tgConnectEvernote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            }
-        });
-
 
         //IP
         edtIP.setText(mPreferenceHelper.getPreferenceString(PreferenceHelper.key_IP));
@@ -292,8 +262,6 @@ public class SettingsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
-
     }
 
 

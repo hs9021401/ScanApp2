@@ -18,6 +18,10 @@ public class PreferenceHelper {
     public final static String key_BINARY_RENDERING = "SCAN_BINARY_RENDERING";
     public final static String key_DUPLEX = "SCAN_DUPLEX";
     public final static String key_DISCRETE_RESOLUTION = "SCAN_DISCRETE_RESOLUTION";
+    public final static String key_COMPRESS_RATE = "SHARE_COMPRESS_RATE";
+
+    public static final String key_DROPBOX_ACCESS_KEY_NAME = "ACCESS_KEY";
+    public static final String key_DROPBOX_ACCESS_SECRET_NAME = "ACCESS_SECRET";
 
     public final static String key_FIRST_LAUNCH = "FIRST_LAUNCH";
 
@@ -26,7 +30,6 @@ public class PreferenceHelper {
     private Context context;
 
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     public PreferenceHelper(Context context)
     {
@@ -45,7 +48,7 @@ public class PreferenceHelper {
                 strDefaultValue = "image/jpeg";
                 break;
             case key_INPUT_SOURCE:
-                strDefaultValue = "Platen";
+                strDefaultValue = "Feeder";
                 break;
             case key_COLOR_MODE:
                 strDefaultValue = "RGB24";
@@ -74,6 +77,12 @@ public class PreferenceHelper {
         return sharedPreferences.getString(key, strDefaultValue);
     }
 
+    public Integer getPreferenceInteger(String key)
+    {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
+        return sharedPreferences.getInt(key, 0);
+    }
+
     public Boolean getPreferenceBoolean(String key)
     {
         sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
@@ -94,7 +103,7 @@ public class PreferenceHelper {
     public void clearPreference(String key)
     {
         sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
-        editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(key);
         editor.clear();
         editor.apply();

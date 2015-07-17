@@ -3,8 +3,9 @@ package com.foxlinkimage.fit.scanapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -12,11 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
-
-import com.facebook.FacebookSdk;
-import com.foxlinkimage.fit.ShareUtils.DropboxShare;
-import com.foxlinkimage.fit.ShareUtils.FacebookShare;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,27 +22,20 @@ import java.util.ArrayList;
 
 import eu.janmuller.android.simplecropimage.CropImage;
 
-public class GalleryActivity extends ActionBarActivity {
+public class GalleryActivity extends AppCompatActivity {
     GridView gvGallery;
     GalleryAdapter mGalleryAdapter;
     static int screenWidth;
     String strProcessCropImgPath;
     Boolean IsShare;
 
-    DropboxShare dropboxShare;
-    FacebookShare facebookShare;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         setupComponent();
-        if (mGalleryAdapter != null) {
-            dropboxShare = new DropboxShare(getApplicationContext(), mGalleryAdapter.getSelectedPics(), "FILE");
-            facebookShare = new FacebookShare(GalleryActivity.this, mGalleryAdapter.getSelectedPics(), "FILE");
-        }
+//        }
     }
 
 
@@ -96,7 +85,7 @@ public class GalleryActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("TAG", "onActivityResult");
-        if (resultCode == RESULT_OK && requestCode != FacebookShare.FB_REQ_CODE) {
+        if (resultCode == RESULT_OK) {
             Bitmap bmp;
             bmp = BitmapFactory.decodeFile(strProcessCropImgPath.replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath));
             FileOutputStream fos = null;
@@ -107,6 +96,7 @@ public class GalleryActivity extends ActionBarActivity {
             }
             bmp.compress(Bitmap.CompressFormat.JPEG, 10, fos);  //壓縮90%
             try {
+                assert fos != null;
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -124,8 +114,6 @@ public class GalleryActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mGalleryAdapter != null)
-            dropboxShare.Resume();
         Log.d("TAG", "onResume()");
     }
 
@@ -156,6 +144,7 @@ public class GalleryActivity extends ActionBarActivity {
             switch (menuItem.getItemId()) {
                 case R.id.action_select_all:
                     Log.d("TAG", "全選按下");
+                    IsShare = false;
                     if (mGalleryAdapter.bSelectAll) {
                         mGalleryAdapter.DeSelectAll();
                     } else {
@@ -163,28 +152,59 @@ public class GalleryActivity extends ActionBarActivity {
                     }
                     break;
 
-                case R.id.action_facebook:
-                    Log.d("TAG", "facebook分享按下");
-                    facebookShare.Share();
+                case R.id.action_share:
+                    ArrayList<Uri> files = new ArrayList<>();
+                    for (int i = 0; i < mGalleryAdapter.getSelectedPics().size(); i++) {
+                        Uri file = Uri.fromFile(new File(mGalleryAdapter.getSelectedPics().get(i).replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath)));
+                        files.add(file);
+                    }
+                    Intent it = new Intent();
+                    it.setAction(Intent.ACTION_SEND_MULTIPLE);
+                    it.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+//                    it.putExtra(Intent.EXTRA_TITLE, "test");
+//                    it.putExtra(Intent.EXTRA_TEXT, "hello~~");
+                    it.setType("image/jpeg");
+                    startActivity(Intent.createChooser(it, "Select Share App"));
                     IsShare = true;
                     actionMode.finish();
                     break;
 
-                case R.id.action_dropbox:
-                    Log.d("TAG", "Dropbox分享按下");
-                    Toast.makeText(GalleryActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
-                    dropboxShare.Share();
-                    IsShare = true;
-                    actionMode.finish();
-                    break;
-
-                case R.id.action_googleplus:
-//                    googleplusShare.Share();
+//
+//                case R.id.action_facebook:
+//                    Log.d("TAG", "facebook分享按下");
+//                    facebookShare.Share();
 //                    IsShare = true;
 //                    actionMode.finish();
-                    break;
+//                    break;
+//
+//                case R.id.action_dropbox:
+//                    Log.d("TAG", "Dropbox分享按下");
+//                    Toast.makeText(GalleryActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
+//                    dropboxShare.Share();
+//                    IsShare = true;
+//                    actionMode.finish();
+//                    break;
+//
+//                case R.id.action_googleplus:
+//                    break;
+//
+//                case R.id.action_evernote:
+//                    ArrayList<Uri> files = new ArrayList<>();
+//                    for (int i = 0; i < mGalleryAdapter.getSelectedPics().size(); i++) {
+//                        Uri file = Uri.fromFile(new File(mGalleryAdapter.getSelectedPics().get(i).replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath)));
+//                        files.add(file);
+//                    }
+//                    Intent it = new Intent();
+//                    it.setAction(Intent.ACTION_SEND_MULTIPLE);
+//                    it.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+////                    it.putExtra(Intent.EXTRA_TITLE, "test");
+////                    it.putExtra(Intent.EXTRA_TEXT, "hello~~");
+//                    it.setType("image/jpeg");
+//                    startActivity(Intent.createChooser(it, "Choose the place you want to upload"));
+//                    break;
 
                 case R.id.action_delete:
+                    IsShare = false;
                     Log.d("TAG", "刪除按下");
                     FileUtils.deleteFile(mGalleryAdapter);
                     actionMode.finish();
@@ -198,7 +218,7 @@ public class GalleryActivity extends ActionBarActivity {
         public void onDestroyActionMode(android.support.v7.view.ActionMode actionMode) {
             mGalleryAdapter.bEnterActionMode = false;
             //2015-0616 原本因為離開actionmode會清空 mGalleryAdapter, 所以加了一個IsShare判斷是不是分享功能, 如果是的話就不要清空alSelectedPics
-            if(!IsShare) {
+            if (!IsShare) {
                 mGalleryAdapter.DeSelectAll();
             }
             mGalleryAdapter.notifyDataSetChanged();

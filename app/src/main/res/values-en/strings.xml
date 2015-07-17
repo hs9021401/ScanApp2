@@ -33,6 +33,7 @@
     <string name="facebook">Facebook</string>
     <string name="dropbox">Dropbox</string>
     <string name="googleplus">Google+</string>
+    <string name="evernote">Evernote</string>
 
     <string name="uploading">Uploading…</string>
     <string name="uploadcomplete">Upload complete</string>
@@ -57,6 +58,12 @@
     <string name="discreteresolution">Resolution</string>
     <string name="connecttodropbox">Connect to Dropbox</string>
     <string name="connecttoevernote">Connect to Evernote</string>
+    <string name="compressrate">[FB]Image compress rate</string>
+    <string-array name="compress_rate">
+        <item>75</item>
+        <item>50</item>
+        <item>25</item>
+    </string-array>
 
     <!--Preference-->
     <string name="PREFERENCES_NAME">myPreference</string>
@@ -74,8 +81,8 @@
     </string-array>
 
     <string-array name="input_source">
-        <item>Platen</item>
         <item>Feeder</item>
+        <item>Platen</item>
     </string-array>
 
     <string-array name="color_mode">
@@ -122,6 +129,8 @@
         <item>600</item>
         <item>1200</item>
     </string-array>
+
+
 
     <string name="app_id">489047957920987</string>
 

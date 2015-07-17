@@ -1,8 +1,9 @@
 package com.foxlinkimage.fit.scanapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,40 +11,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.facebook.FacebookSdk;
-import com.foxlinkimage.fit.ShareUtils.DropboxShare;
-import com.foxlinkimage.fit.ShareUtils.FacebookShare;
 
 import java.io.File;
 import java.util.ArrayList;
 
 
-public class FolderActivity extends ActionBarActivity {
+public class FolderActivity extends AppCompatActivity {
     ListView lvFolders;
     Boolean IsShare;
 
     TextView tvLocation;
     ArrayList<File> alFolders;
     FolderAdapter mFolderAdapter;
-    DropboxShare dropboxShare;
-    FacebookShare facebookShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_folder);
         setupComponent();
-
-        if (mFolderAdapter == null) {
-            Log.d("TAG", "mFolderAdapter is null");
-        } else {
-            // 初始化分享功能
-            dropboxShare = new DropboxShare(getApplicationContext(), mFolderAdapter.getSelectedFolder(), "FOLDER");
-            facebookShare = new FacebookShare(FolderActivity.this, mFolderAdapter.getSelectedFolder(), "FOLDER");
-        }
     }
 
     void setupComponent() {
@@ -85,9 +70,6 @@ public class FolderActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO: 判斷使用者是否有安裝dropbox
-        if (mFolderAdapter != null)
-            dropboxShare.Resume();
     }
 
 
@@ -116,6 +98,7 @@ public class FolderActivity extends ActionBarActivity {
         public boolean onActionItemClicked(android.support.v7.view.ActionMode actionMode, MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_select_all:
+                    IsShare = false;
                     Log.d("TAG", "全選按下");
                     if (mFolderAdapter.bSelectAll) {
                         mFolderAdapter.DeSelectAll();
@@ -125,24 +108,39 @@ public class FolderActivity extends ActionBarActivity {
                     mFolderAdapter.notifyDataSetChanged();
                     break;
 
-                case R.id.action_facebook:
-                    Log.d("TAG", "facebook分享按下");
-                    facebookShare.Share();
-                    break;
 
-                case R.id.action_dropbox:
-                    Log.d("TAG", "Dropbox分享按下");
-                    Toast.makeText(FolderActivity.this, "正在分享至Dropbox, 進度請下拉狀態欄查看..", Toast.LENGTH_SHORT).show();
-                    dropboxShare.Share();
+                case R.id.action_share:
                     IsShare = true;
+                    ArrayList<Uri> filestoshare = new ArrayList<>();
+                    ArrayList<String> folders;
+                    folders = mFolderAdapter.getSelectedFolder();
+
+                    for (int item = 0; item < folders.size(); item++) {
+                        String a = folders.get(item).replace(PreferenceHelper.strDefaultSaveFolderThumbnailsPath, PreferenceHelper.strDefaultSaveFolderPath);
+                        folders.set(item,a);
+                    }
+
+                    File[] filesinfolder;
+
+                    for (int i = 0; i < folders.size(); i++) {
+                        File tmp = new File(folders.get(i));
+                        filesinfolder = tmp.listFiles();
+
+                        for (File aFilesinfolder : filesinfolder) {
+                            Uri file = Uri.fromFile(aFilesinfolder);
+                            filestoshare.add(file);
+                        }
+                    }
+                    Intent it = new Intent();
+                    it.setAction(Intent.ACTION_SEND_MULTIPLE);
+                    it.putParcelableArrayListExtra(Intent.EXTRA_STREAM, filestoshare);
+                    it.setType("image/jpeg");
+                    startActivity(Intent.createChooser(it, "Choose the place you want to upload"));
                     actionMode.finish();
                     break;
 
-                case R.id.action_googleplus:
-
-                    break;
-
                 case R.id.action_delete:
+                    IsShare = false;
                     Log.d("TAG", "刪除按下");
                     FileUtils.deleteFolder(mFolderAdapter);
                     actionMode.finish();

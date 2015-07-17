@@ -36,6 +36,7 @@
     <string name="facebook">Facebook</string>
     <string name="dropbox">Dropbox</string>
     <string name="googleplus">Google+</string>
+    <string name="evernote">Evernote</string>
     <string name="uploading">上傳中…</string>
     <string name="uploadcomplete">上傳完畢</string>
     <string name="sharetodropbox">分享至Dropbox</string>
@@ -59,6 +60,12 @@
     <string name="discreteresolution">掃描解析度</string>
     <string name="connecttodropbox">連結至Dropbox</string>
     <string name="connecttoevernote">連結至Evernote</string>
+    <string name="compressrate">FB圖片壓縮率</string>
+    <string-array name="compress_rate">
+        <item>75</item>
+        <item>50</item>
+        <item>25</item>
+    </string-array>
 
     <!--Preference-->
     <string name="PREFERENCES_NAME">myPreference</string>
@@ -76,8 +83,8 @@
     </string-array>
 
     <string-array name="input_source">
-        <item>Platen</item>
         <item>Feeder</item>
+        <item>Platen</item>
     </string-array>
 
     <string-array name="color_mode">
@@ -125,9 +132,9 @@
         <item>1200</item>
     </string-array>
 
-    <string name="app_id">489047957920987</string>
-    <string name="title_activity_instructment">InstructmentActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+
+    <string name="app_id">489047957920987</string>
+
 
 </resources>

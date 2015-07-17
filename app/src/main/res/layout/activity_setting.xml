@@ -45,60 +45,9 @@
                 android:layout_weight="0.4"
                 android:background="@drawable/button_bgcolor"
                 android:text="@string/searchdevice"
-                android:textColor="#acaae4" />
+                android:textColor="#ffffff" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.6"
-                android:text="連到Dropbox" />
-
-            <ToggleButton
-                android:id="@+id/connect_dropbox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:background="@drawable/button_bgcolor"
-                android:textColor="#acaae4"
-                android:textOff="@string/disconnect"
-                android:textOn="@string/connected" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.6"
-                android:text="連到Evernote" />
-
-            <ToggleButton
-                android:id="@+id/connect_evernote"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
-                android:background="@drawable/button_bgcolor"
-                android:textColor="#acaae4"
-                android:textOff="@string/disconnect"
-                android:textOn="@string/connected" />
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,13 +69,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
                 android:background="@drawable/button_bgcolor"
-                android:textColor="#acaae4"
-                android:textOff="@string/off"
-                android:textOn="@string/on" />
+                android:textColor="#ffffff"
+                android:textOff="@string/on"
+                android:textOn="@string/off" />
         </LinearLayout>
     </LinearLayout>
 
     <ScrollView
+        android:layout_marginTop="15dp"
+        android:background="#e7ffb4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <!--scan params start    -->
@@ -315,6 +266,7 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
         <!--scan params end-->
     </ScrollView>

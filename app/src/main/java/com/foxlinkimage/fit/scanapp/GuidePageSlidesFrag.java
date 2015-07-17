@@ -1,5 +1,6 @@
 package com.foxlinkimage.fit.scanapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +15,15 @@ import android.widget.Button;
 /**
  * Created by Alex on 2015/6/29.
  */
-public class GuidePageSlidesFrag extends Fragment{
+@SuppressLint("ValidFragment")
+public class GuidePageSlidesFrag extends Fragment {
     Button btnNaviToMain;
     int page_num;
     Context mContext;
+
+    public GuidePageSlidesFrag() {
+        super();
+    }
 
     public GuidePageSlidesFrag(Context context) {
         super();
@@ -32,8 +38,7 @@ public class GuidePageSlidesFrag extends Fragment{
         Log.d("TAG", "page number: " + page_num);
 
         int res = 0;
-        switch (page_num)
-        {
+        switch (page_num) {
             case 0:
                 res = R.layout.fragment_screen_slide_page;
                 break;
@@ -53,14 +58,13 @@ public class GuidePageSlidesFrag extends Fragment{
 
         View rootView = inflater.inflate(res, container, false);
 
-        if(res == R.layout.fragment_screen_slide_page5)
-        {
+        if (res == R.layout.fragment_screen_slide_page5) {
             btnNaviToMain = (Button) rootView.findViewById(R.id.navitomain);
 
             btnNaviToMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   getActivity().finish();
+                    getActivity().finish();
                     Intent it = new Intent(mContext, MainActivity.class);
                     startActivity(it);
                 }

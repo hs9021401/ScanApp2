@@ -18,10 +18,10 @@ public class SearchDeviceActivity extends Activity {
     Button btnSelDevice_Cancel, btnSelDevice_OK;
     NsdHelper mNsdHelper;
     PreferenceHelper mPreferenceHelper;
-    ListView lvDiscovereDevicesList;
+    static ListView lvDiscovereDevicesList;
     String strSelectedIP;
-    DevicesAdapter myDevicesAdapter;
-    ArrayList<String[]> mCandidateDeviceList;
+    static DevicesAdapter myDevicesAdapter;
+    static ArrayList<String[]> mCandidateDeviceList;
     static String Hostname, IP, Port;
     static Boolean bDiplicateDeviceFound;
     private final MyHandler handler = new MyHandler(this);
@@ -79,30 +79,37 @@ public class SearchDeviceActivity extends Activity {
 
     }
 
-    private class MyHandler extends Handler {
+    private static class MyHandler extends Handler {
         private final WeakReference<SearchDeviceActivity> mActivity;
 
         public MyHandler(SearchDeviceActivity activity) {
             mActivity = new WeakReference<SearchDeviceActivity>(activity);
         }
 
+
         @Override
         public void handleMessage(Message msg) {
-            Hostname = msg.getData().getString("HOSTNAME");
-            IP = msg.getData().getString("IP");
-            Port = msg.getData().getString("PORT");
-            String[] strTuple = new String[3];
-            strTuple[0] = Hostname;
-            strTuple[1] = IP;
-            strTuple[2] = Port;
+            SearchDeviceActivity searchDeviceActivity = mActivity.get();
+            if(searchDeviceActivity!=null)
+            {
+                Hostname = msg.getData().getString("HOSTNAME");
+                IP = msg.getData().getString("IP");
+                Port = msg.getData().getString("PORT");
+                String[] strTuple = new String[3];
+                strTuple[0] = Hostname;
+                strTuple[1] = IP;
+                strTuple[2] = Port;
 
-            addToCandidateDeviceList(strTuple);
+                addToCandidateDeviceList(strTuple);
 
-            myDevicesAdapter.notifyDataSetChanged();
+                myDevicesAdapter.notifyDataSetChanged();
+            }
+
+
         }
     }
 
-    void addToCandidateDeviceList(String[] data) {
+    static void addToCandidateDeviceList(String[] data) {
         if (!mCandidateDeviceList.isEmpty()) {
             bDiplicateDeviceFound = false;
             for (int i = 0; i < mCandidateDeviceList.size(); i++) {
