@@ -136,5 +136,10 @@
 
     <string name="app_id">489047957920987</string>
 
+    <!--Admob廣告-->
+    <!--正式的key-->
+    <string name="banner_ad_unit_id">ca-app-pub-6955119999934538/2429756221</string>
 
+    <!--google 測試用key-->
+    <!--<string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>-->
 </resources>

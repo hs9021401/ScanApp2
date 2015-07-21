@@ -35,12 +35,12 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         setupComponent();
-//        }
     }
 
 
     void setupComponent() {
         gvGallery = (GridView) findViewById(R.id.gallery);
+        IsShare = false;
 
         Intent it = getIntent();
         String strFolderPath = it.getStringExtra("FolderPath");

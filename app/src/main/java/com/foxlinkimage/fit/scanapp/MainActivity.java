@@ -2,13 +2,17 @@ package com.foxlinkimage.fit.scanapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
-public class MainActivity extends ActionBarActivity{
+
+public class MainActivity extends AppCompatActivity{
     Button btnScan,btnFolder, btnSettings;
     ImageView imgBackground;
 
@@ -17,6 +21,11 @@ public class MainActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupComponent();
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().addTestDevice("14C59F6EE6CCFF60843C98AA5042B041").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //(可刪除)取得FB app的hash key
 //        PackageInfo info;
@@ -40,7 +49,9 @@ public class MainActivity extends ActionBarActivity{
     void setupComponent()
     {
         imgBackground = (ImageView)findViewById(R.id.imageWelcome);
-        imgBackground.setImageDrawable(getResources().getDrawable(R.drawable.hp_icon));
+        //imgBackground.setImageDrawable(getResources().getDrawable(R.drawable.main_logo));
+        imgBackground.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.main_logo));
+
 
         btnScan = (Button)findViewById(R.id.btnScan);
         btnFolder = (Button)findViewById(R.id.btnFolder);

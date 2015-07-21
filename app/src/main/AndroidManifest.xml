@@ -3,6 +3,7 @@
     package="com.foxlinkimage.fit.scanapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="ANDROID.PERMISSION.VIBRATE" />
@@ -16,6 +17,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MainActivity"
@@ -66,6 +70,11 @@
             </intent-filter>
         </activity>
 
+        <!--廣告區域-->
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
         <!-- facebook設定 -->
         <!-- app ID:489047957920987 -->
         <!-- hash key:8+zdYBc+wURNe2jgKoSXEOnFFWI= -->
@@ -90,8 +99,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.evernote.client.android.EvernoteOAuthActivity" />
-        <activity android:name="com.evernote.client.android.login.EvernoteLoginActivity"/>
 
     </application>
 

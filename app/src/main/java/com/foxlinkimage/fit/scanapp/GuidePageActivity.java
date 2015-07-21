@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class GuidePageActivity extends FragmentActivity {
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 7;
     PreferenceHelper preferenceHelper;
     ImageView[] dots;
     private int currentIndex;
@@ -107,8 +107,8 @@ public class GuidePageActivity extends FragmentActivity {
     private void initDots() {
         LinearLayout dotslayout = (LinearLayout) findViewById(R.id.dotslayout);
 
-        dots = new ImageView[5];
-        for (int i = 0; i < 5; i++) {
+        dots = new ImageView[7];
+        for (int i = 0; i < 7; i++) {
             dots[i] = (ImageView) dotslayout.getChildAt(i);
             dots[i].setEnabled(true);
         }

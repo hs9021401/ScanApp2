@@ -12,9 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * Created by Alex on 2015/6/29.
- */
 @SuppressLint("ValidFragment")
 public class GuidePageSlidesFrag extends Fragment {
     Button btnNaviToMain;
@@ -40,25 +37,31 @@ public class GuidePageSlidesFrag extends Fragment {
         int res = 0;
         switch (page_num) {
             case 0:
-                res = R.layout.fragment_screen_slide_page;
+                res = R.layout.fragment_screen_slide_main;
                 break;
             case 1:
-                res = R.layout.fragment_screen_slide_page2;
+                res = R.layout.fragment_screen_slide_setting;
                 break;
             case 2:
-                res = R.layout.fragment_screen_slide_page3;
+                res = R.layout.fragment_screen_slide_device_search;
                 break;
             case 3:
-                res = R.layout.fragment_screen_slide_page4;
+                res = R.layout.fragment_screen_slide_setting_detail;
                 break;
             case 4:
-                res = R.layout.fragment_screen_slide_page5;
+                res = R.layout.fragment_screen_slide_folder;
+                break;
+            case 5:
+                res = R.layout.fragment_screen_slide_edit;
+                break;
+            case 6:
+                res = R.layout.fragment_screen_slide_share;
                 break;
         }
 
         View rootView = inflater.inflate(res, container, false);
 
-        if (res == R.layout.fragment_screen_slide_page5) {
+        if (res == R.layout.fragment_screen_slide_share) {
             btnNaviToMain = (Button) rootView.findViewById(R.id.navitomain);
 
             btnNaviToMain.setOnClickListener(new View.OnClickListener() {

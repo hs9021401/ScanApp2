@@ -36,6 +36,7 @@ public class FolderActivity extends AppCompatActivity {
         tvLocation = (TextView) findViewById(R.id.location);
         tvLocation.setText(PreferenceHelper.strDefaultSaveFolderThumbnailsPath);
         lvFolders = (ListView) findViewById(R.id.folders);
+        IsShare = false;
 
         //如果資料夾內是空的話, 顯示no file訊息
         if (alFolders == null) {

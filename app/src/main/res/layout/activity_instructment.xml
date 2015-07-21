@@ -31,10 +31,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:gravity="center"
             android:id="@+id/dotslayout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3">
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:padding="5dp"
+                android:src="@drawable/dot" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:padding="5dp"
+                android:src="@drawable/dot" />
 
             <ImageView
                 android:layout_width="wrap_content"
