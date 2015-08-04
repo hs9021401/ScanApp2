@@ -90,9 +90,16 @@ public class SearchDeviceActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             SearchDeviceActivity searchDeviceActivity = mActivity.get();
-            if(searchDeviceActivity!=null)
-            {
+            if (searchDeviceActivity != null) {
                 Hostname = msg.getData().getString("HOSTNAME");
+
+
+//                if (Hostname != null) {
+//                    if (Hostname.contains("\\032")) {
+//                        Hostname.replace("\\032", " ");
+//                    }
+//                }
+
                 IP = msg.getData().getString("IP");
                 Port = msg.getData().getString("PORT");
                 String[] strTuple = new String[3];

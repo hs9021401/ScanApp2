@@ -61,6 +61,20 @@
     <string name="connecttodropbox">連結至Dropbox</string>
     <string name="connecttoevernote">連結至Evernote</string>
     <string name="compressrate">FB圖片壓縮率</string>
+    <string name="autocrop">AutoCrop</string>
+    <string name= "threshold">-閥值</string>
+    <string name = "autoexpo">-自動曝光</string>
+    <string name="thresholdwarning">請輸入數字介於0到255之間</string>
+    <string name="blankpagedetect">白紙偵測</string>
+    <string name="autocolor">自動色彩</string>
+    <string name="autocolordectionmode_lable">自動色彩偵測</string>
+
+    <string-array name="autocolor_detection_mode">
+        <item>DetectOnly</item>
+        <item>TreatNonColorAsBlackAndWhite1</item>
+        <item>TreatNonColorAsGrayscale8</item>
+    </string-array>
+
     <string-array name="compress_rate">
         <item>75</item>
         <item>50</item>

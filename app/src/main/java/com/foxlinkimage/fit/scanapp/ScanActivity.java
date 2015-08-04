@@ -116,7 +116,7 @@ public class ScanActivity extends Activity {
 
     //Create handler with WeakRederence class to avoid memory leak
     // http://www.androiddesignpatterns.com/2013/01/inner-class-handler-memory-leak.html
-    private static class MyHandler extends Handler {
+    public static class MyHandler extends Handler {
         private final WeakReference<ScanActivity> mActivity;
 
         public MyHandler(ScanActivity activity) {

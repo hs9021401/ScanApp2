@@ -3,8 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'fit'
-            storeFile file('E:/Project/Android/WorkSpace/AlexAndroidKeyStore.jks')
+
         }
     }
     compileSdkVersion 22
@@ -13,8 +12,8 @@ android {
         applicationId "com.foxlinkimage.fit.scanapp"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1.0"
     }
     buildTypes {
         release {
@@ -31,6 +30,5 @@ dependencies {
     compile 'com.android.support:support-v4:22.2.1'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile project(':simple-crop-image-lib')
-    compile files('libs/json_simple-1.1.jar')
     compile project(':facebook')
 }

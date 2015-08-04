@@ -13,16 +13,18 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
 public class SettingsActivity extends AppCompatActivity {
-    EditText edtIP;
+    EditText edtIP, edtAutoCropThreshold, edtBlankPageSensitivity, edtAutoColorSensitivity;
     ToggleButton tgAdvancedOption;
+    Switch swchAutoCrop, swchAutoExpo, swchBlankPageDetect, swchAutoColor;
     Button btnSearchDevice;
-    Spinner spnDocumentFormat, spnInputSource, spnColorMode, spnColorSpace, spnCcdChannel, spnBinaryRendering, spnDuplex, spnDiscreteResolution;
+    Spinner spnDocumentFormat, spnInputSource, spnColorMode, spnColorSpace, spnCcdChannel, spnBinaryRendering, spnDuplex, spnDiscreteResolution, spnAutoColorDetectionMode;
     PreferenceHelper mPreferenceHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +34,78 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onBackPressed() {
+        int error_count = 0;
+
+        //檢查IP是否一樣, 不一樣就存入Preference
         String tmp_IP = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_IP);
         if (!tmp_IP.equals(edtIP.getText().toString())) {
             mPreferenceHelper.setPreferenceString(PreferenceHelper.key_IP, edtIP.getText().toString());
         }
+
+        //AutoCrop on/off狀態
+        mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_AUTOCROP_ONOFF, swchAutoCrop.isChecked());
+
+        //AutoExposure on/off狀態
+        mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_AUTOCROP_AUTOEXPOSURE, swchAutoExpo.isChecked());
+
+        //AutoColor on/off狀態
+        mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_AUTO_COLOR_ONOFF, swchAutoColor.isChecked());
+
+        //BlankPage on/off狀態
+        mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION, swchBlankPageDetect.isChecked());
+
+        //檢查AutoCrop threahold值是否介於0~255
+        int tmp_threshold = Integer.valueOf(edtAutoCropThreshold.getText().toString());
+        if (tmp_threshold >= 0 && tmp_threshold <= 255) {
+            mPreferenceHelper.setPreferenceInteger(PreferenceHelper.key_AUTOCROP_THRESHOLD, tmp_threshold);
+        }else
+        {
+            error_count ++;
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.thresholdwarning), Toast.LENGTH_SHORT).show();
+        }
+
+        //檢查BlankPageSensitivity值是否介於0~255
+        tmp_threshold = Integer.valueOf(edtBlankPageSensitivity.getText().toString());
+        if (tmp_threshold >= 0 && tmp_threshold <= 255) {
+            mPreferenceHelper.setPreferenceInteger(PreferenceHelper.key_BLANKPAGE_SENSITIVITY, tmp_threshold);
+        }else
+        {
+            error_count ++;
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.thresholdwarning), Toast.LENGTH_SHORT).show();
+        }
+
+        //檢查AutoColorSensitivity值是否介於0~255
+        tmp_threshold = Integer.valueOf(edtAutoColorSensitivity.getText().toString());
+        if (tmp_threshold >= 0 && tmp_threshold <= 255) {
+            mPreferenceHelper.setPreferenceInteger(PreferenceHelper.key_AUTO_COLOR_SENSITIVITY, tmp_threshold);
+        }else
+        {
+            error_count ++;
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.thresholdwarning), Toast.LENGTH_SHORT).show();
+        }
+
+        if(error_count == 0)
+            super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
     }
 
     void setupComponent() {
         mPreferenceHelper = new PreferenceHelper(this);
         edtIP = (EditText) findViewById(R.id.IP);
+        edtAutoCropThreshold = (EditText) findViewById(R.id.autocrop_threshold);
+        edtBlankPageSensitivity = (EditText)findViewById(R.id.blankpage_sensitivity);
+        edtAutoColorSensitivity = (EditText)findViewById(R.id.autocolor_sensitivity);
         btnSearchDevice = (Button) findViewById(R.id.search_device);
         tgAdvancedOption = (ToggleButton) findViewById(R.id.advance_option);
+        swchAutoCrop = (Switch) findViewById(R.id.autocrop);
+        swchAutoExpo = (Switch) findViewById(R.id.autocrop_autoexpo);
+        swchBlankPageDetect = (Switch)findViewById(R.id.blankpagedetection);
+        swchAutoColor = (Switch)findViewById(R.id.autocolor);
         spnDocumentFormat = (Spinner) findViewById(R.id.document_format);
         spnInputSource = (Spinner) findViewById(R.id.input_source);
         spnColorMode = (Spinner) findViewById(R.id.color_mode);
@@ -53,6 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
         spnBinaryRendering = (Spinner) findViewById(R.id.binary_rendering);
         spnDuplex = (Spinner) findViewById(R.id.duplex);
         spnDiscreteResolution = (Spinner) findViewById(R.id.discrete_resolution);
+        spnAutoColorDetectionMode = (Spinner)findViewById(R.id.auto_color_detection_mode);
 
         findViewById(R.id.layout_scan_params).setVisibility(View.GONE);
 
@@ -92,9 +154,45 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //AutoCrop
+        swchAutoCrop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    findViewById(R.id.autocrop_layout).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.autocrop_layout).setVisibility(View.GONE);
+                }
+            }
+        });
+
+        //BlankPageDetect
+        swchBlankPageDetect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    findViewById(R.id.blankpagedetect_layout).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.blankpagedetect_layout).setVisibility(View.GONE);
+                }
+            }
+        });
+
+       //AutoColor
+        //BlankPageDetect
+        swchAutoColor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    findViewById(R.id.autocolor_layout).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.autocolor_layout).setVisibility(View.GONE);
+                }
+            }
+        });
+
         //IP
         edtIP.setText(mPreferenceHelper.getPreferenceString(PreferenceHelper.key_IP));
-
 
         //Document Format
         ArrayAdapter<CharSequence> adapFormatList = ArrayAdapter.createFromResource(this, R.array.document_format, R.layout.support_simple_spinner_dropdown_item);
@@ -262,11 +360,44 @@ public class SettingsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        //AutoColorDetectionMode
+        ArrayAdapter<CharSequence> adapColorDetectionModeList = ArrayAdapter.createFromResource(this, R.array.autocolor_detection_mode, R.layout.support_simple_spinner_dropdown_item);
+        spnAutoColorDetectionMode.setAdapter(adapColorDetectionModeList);
+        spnAutoColorDetectionMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            protected Adapter initializedAdapter = null;
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (initializedAdapter != adapterView.getAdapter()) {
+                    initializedAdapter = adapterView.getAdapter();
+                    return;
+                }
+                mPreferenceHelper.setPreferenceString(PreferenceHelper.key_AUTO_COLOR_DETECTION_MODE, adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 
 
     void loadPreference() {
         edtIP.setText(mPreferenceHelper.getPreferenceString(PreferenceHelper.key_IP));
+        edtAutoCropThreshold.setText(String.valueOf(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_AUTOCROP_THRESHOLD, 128)));
+        edtBlankPageSensitivity.setText(String.valueOf(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_BLANKPAGE_SENSITIVITY, 255)));
+        edtAutoColorSensitivity.setText(String.valueOf(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_AUTO_COLOR_SENSITIVITY, 145)));
+
+        //AutoCrop預設關閉
+        swchAutoCrop.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_ONOFF, false));
+        // Autoexposure 預設關閉
+        swchAutoExpo.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_AUTOEXPOSURE, false));
+        //BlankPageDetection預設關閉
+        swchBlankPageDetect.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION, false));
+        //AutoColor預設關閉
+        swchAutoExpo.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTO_COLOR_ONOFF, false));
+
 
         String[] mode = getResources().getStringArray(R.array.color_mode);
         for (int i = 0; i < mode.length; i++) {
@@ -300,6 +431,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
 
+        String[] autocolordetectmode = getResources().getStringArray(R.array.autocolor_detection_mode);
+        for (int i = 0; i < autocolordetectmode.length; i++) {
+            if (autocolordetectmode[i].equals(mPreferenceHelper.getPreferenceString(PreferenceHelper.key_AUTO_COLOR_DETECTION_MODE))) {
+                spnAutoColorDetectionMode.setSelection(i);
+                break;
+            }
+        }
     }
 
     @Override

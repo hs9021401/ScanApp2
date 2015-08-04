@@ -76,11 +76,12 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_marginTop="15dp"
-        android:background="#e7ffb4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!--scan params start    -->
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="7dp"
+        android:background="#e7ffb4">
+        <!--Scan params start    -->
         <LinearLayout
             android:id="@+id/layout_scan_params"
             android:layout_width="match_parent"
@@ -266,6 +267,257 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
             </LinearLayout>
+
+
+            <!--AutoCrop params Start-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/autocrop" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Switch
+                        android:id="@+id/autocrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <!--AutoCrop參數子區塊-->
+            <LinearLayout
+                android:id="@+id/autocrop_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ced7ff"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--Threshold-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="7dp"
+                        android:text="@string/threshold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end">
+
+                        <EditText
+                            android:id="@+id/autocrop_threshold"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:text="128" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!--AutoExposure-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/autoexpo" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end">
+
+                        <Switch
+                            android:id="@+id/autocrop_autoexpo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="false" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!--AutoCrop params End-->
+
+
+
+            <!--BlankPageDetect params Start-->
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/blankpagedetect" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Switch
+                        android:id="@+id/blankpagedetection"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <!--BlankPageDetect參數子區塊-->
+            <LinearLayout
+                android:id="@+id/blankpagedetect_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ced7ff"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--BlankPageSensitivity-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="7dp"
+                        android:text="@string/threshold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end">
+
+                        <EditText
+                            android:id="@+id/blankpage_sensitivity"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:text="255" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <!--BlankPageDetect params End-->
+
+            <!--AutoColor params Start-->
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/autocolor" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Switch
+                        android:id="@+id/autocolor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <!--AutoColor參數子區塊-->
+            <LinearLayout
+                android:id="@+id/autocolor_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ced7ff"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--AutoColorDetectionMode-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/autocolordectionmode_lable" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end">
+                        <Spinner
+                            android:id="@+id/auto_color_detection_mode"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--ColorSensitivity-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="7dp"
+                        android:text="@string/threshold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="end">
+
+                        <EditText
+                            android:id="@+id/autocolor_sensitivity"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:text="145" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--AutoColor params End-->
+
 
         </LinearLayout>
         <!--scan params end-->

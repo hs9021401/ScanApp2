@@ -18,8 +18,20 @@ public class PreferenceHelper {
     public final static String key_BINARY_RENDERING = "SCAN_BINARY_RENDERING";
     public final static String key_DUPLEX = "SCAN_DUPLEX";
     public final static String key_DISCRETE_RESOLUTION = "SCAN_DISCRETE_RESOLUTION";
-    public final static String key_COMPRESS_RATE = "SHARE_COMPRESS_RATE";
 
+    public final static String key_AUTOCROP_ONOFF = "AUTOCROP_ONOFF";
+    public final static String key_AUTOCROP_THRESHOLD = "AUTOCROP_THRESHOLD";
+    public final static String key_AUTOCROP_AUTOEXPOSURE = "AUTOCROP_AUTOEXPOSURE";
+
+    public final static String key_BLANKPAGE_DETECTION = "BLANKPAGE_DETECTION";
+    public final static String key_BLANKPAGE_SENSITIVITY = "BLANKPAGE_SENSITIVITY";
+
+    public final static String key_AUTO_COLOR_ONOFF = "AUTO_COLORONOFF";
+    public final static String key_AUTO_COLOR_DETECTION_MODE = "AUTO_COLOR_DETECTION_MODE";
+    public final static String key_AUTO_COLOR_SENSITIVITY = "AUTO_COLOR_SENSITIVITY";
+
+
+    public final static String key_COMPRESS_RATE = "SHARE_COMPRESS_RATE";
     public static final String key_DROPBOX_ACCESS_KEY_NAME = "ACCESS_KEY";
     public static final String key_DROPBOX_ACCESS_SECRET_NAME = "ACCESS_SECRET";
 
@@ -83,10 +95,22 @@ public class PreferenceHelper {
         return sharedPreferences.getInt(key, 0);
     }
 
+    public Integer getPreferenceInteger(String key, Integer iniValue)
+    {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, iniValue);
+        return sharedPreferences.getInt(key, iniValue);
+    }
+
     public Boolean getPreferenceBoolean(String key)
     {
         sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
         return sharedPreferences.getBoolean(key, true);
+    }
+
+    public Boolean getPreferenceBoolean(String key, Boolean iniValue)
+    {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
+        return sharedPreferences.getBoolean(key, iniValue);
     }
 
     public void setPreferenceString(String key, String value) {
@@ -98,6 +122,11 @@ public class PreferenceHelper {
     {
         sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
         sharedPreferences.edit().putBoolean(key, value).apply();
+    }
+
+    public void setPreferenceInteger(String key, Integer value) {
+        sharedPreferences = context.getSharedPreferences(strPreferenceListName, 0);
+        sharedPreferences.edit().putInt(key, value).apply();
     }
 
     public void clearPreference(String key)
