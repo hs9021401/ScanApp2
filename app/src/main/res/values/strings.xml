@@ -62,8 +62,8 @@
     <string name="connecttoevernote">連結至Evernote</string>
     <string name="compressrate">FB圖片壓縮率</string>
     <string name="autocrop">AutoCrop</string>
-    <string name= "threshold">-閥值</string>
-    <string name = "autoexpo">-自動曝光</string>
+    <string name="threshold">-閥值</string>
+    <string name="autoexpo">-自動曝光</string>
     <string name="thresholdwarning">請輸入數字介於0到255之間</string>
     <string name="blankpagedetect">白紙偵測</string>
     <string name="autocolor">自動色彩</string>
@@ -85,10 +85,10 @@
     <string name="PREFERENCES_NAME">myPreference</string>
 
     <!--<string-array name="intents">-->
-        <!--<item>Document</item>-->
-        <!--<item>TextAndGraphic</item>-->
-        <!--<item>Photo</item>-->
-        <!--<item>Preview</item>-->
+    <!--<item>Document</item>-->
+    <!--<item>TextAndGraphic</item>-->
+    <!--<item>Photo</item>-->
+    <!--<item>Preview</item>-->
     <!--</string-array>-->
 
     <string-array name="document_format">
@@ -145,7 +145,6 @@
         <item>600</item>
         <item>1200</item>
     </string-array>
-
 
 
     <string name="app_id">489047957920987</string>

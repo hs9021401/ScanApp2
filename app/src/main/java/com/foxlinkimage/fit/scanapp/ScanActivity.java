@@ -43,7 +43,7 @@ import java.util.Locale;
 
 
 public class ScanActivity extends Activity {
-
+    PreferenceHelper mPreferenceHelper;
     private String strIP, strRootFolder, strRootThumbnailsFolder;
     private String device_State, device_AdfState;
     private String strDocumentFormat, strInputSource, strColorMode, strColorSpace, strCcdChannel, strBinaryRendering, strDuplex, strDiscreteResolution;
@@ -69,7 +69,7 @@ public class ScanActivity extends Activity {
     protected void onPostResume() {
         super.onPostResume();
 
-         //get setting value
+        //get setting value
         initialDefaultValue();
 
         bCancelScan = false;
@@ -99,7 +99,7 @@ public class ScanActivity extends Activity {
     }
 
     private void initialDefaultValue() {
-        PreferenceHelper mPreferenceHelper = new PreferenceHelper(getApplicationContext());
+        mPreferenceHelper = new PreferenceHelper(getApplicationContext());
         strIP = mPreferenceHelper.getPreferenceString(PreferenceHelper.key_IP);
         strRootFolder = PreferenceHelper.strDefaultSaveFolderPath;
         strRootThumbnailsFolder = PreferenceHelper.strDefaultSaveFolderThumbnailsPath;
@@ -142,7 +142,7 @@ public class ScanActivity extends Activity {
                             if (activity.strInputSource.equals("Feeder")) //送紙方式, 檢查是否有放紙進去
                             {
                                 if (activity.device_AdfState.equals("ScannerAdfEmpty")) {
-                                    Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.nopaperinfeeder) , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.nopaperinfeeder), Toast.LENGTH_SHORT).show();
                                     activity.finish();
                                 } else
                                     activity.doScan();
@@ -247,10 +247,12 @@ public class ScanActivity extends Activity {
     void runScanAnimation() {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenWidth = dm.widthPixels;
+//        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
 
         //過場動畫
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imgScanAnim, "X", -screenWidth, screenWidth);
+//        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imgScanAnim, "X", -screenWidth, screenWidth);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(imgScanAnim, "Y", -screenHeight, screenHeight);
         objectAnimator.setDuration(5000);
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
@@ -318,6 +320,29 @@ public class ScanActivity extends Activity {
             xml.append("<CcdChannel>").append(strCcdChannel).append("</CcdChannel>");
             xml.append("<BinaryRendering>").append(strBinaryRendering).append("</BinaryRendering>");
             xml.append("<Duplex>").append(strDuplex).append("</Duplex>");
+
+            //20150805 add AutoX params
+            boolean bAutoCrop = mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_ONOFF, false);
+            boolean bBlankPage = mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION_ONOFF, false);
+            boolean bAutoColor = mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTO_COLOR_ONOFF, false);
+
+            if (bAutoCrop) {
+                xml.append("<AutoCrop>").append(bAutoCrop).append("</AutoCrop>");
+                xml.append("<Threshold>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_AUTOCROP_THRESHOLD, 128)).append("</Threshold>");
+                xml.append("<AutoExposure>").append(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_AUTOEXPOSURE, false)).append("</AutoExposure>");
+            }
+
+            if (bBlankPage) {
+                xml.append("<BlankPageDetection>").append(bBlankPage).append("</BlankPageDetection>");
+                xml.append("<BlankPageSensitivity>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_BLANKPAGE_SENSITIVITY, 255)).append("</BlankPageSensitivity>");
+            }
+
+            if (bAutoColor) {
+                xml.append("<ColorMode>scan:AutoColorDetection</ColorMode>");
+                xml.append("<AutoColorDetectionMode>").append(mPreferenceHelper.getPreferenceString(PreferenceHelper.key_AUTO_COLOR_DETECTION_MODE)).append("</AutoColorDetectionMode>");
+                xml.append("<ColorSensitivity>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_AUTO_COLOR_SENSITIVITY, 145)).append("</ColorSensitivity>");
+            }
+
             xml.append("</ScanSettings>");
 
             try {
@@ -395,6 +420,7 @@ public class ScanActivity extends Activity {
                                 publishProgress(strOutputtThumbnailsPath);
                                 Thread.sleep(2000);
                             }
+                            //TODO: else(strDataFormat.equals(".pdf"))
                         }
 
                         if (responseCode == 404) {

@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
         mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_AUTO_COLOR_ONOFF, swchAutoColor.isChecked());
 
         //BlankPage on/off狀態
-        mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION, swchBlankPageDetect.isChecked());
+        mPreferenceHelper.setPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION_ONOFF, swchBlankPageDetect.isChecked());
 
         //檢查AutoCrop threahold值是否介於0~255
         int tmp_threshold = Integer.valueOf(edtAutoCropThreshold.getText().toString());
@@ -394,7 +394,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Autoexposure 預設關閉
         swchAutoExpo.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_AUTOEXPOSURE, false));
         //BlankPageDetection預設關閉
-        swchBlankPageDetect.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION, false));
+        swchBlankPageDetect.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION_ONOFF, false));
         //AutoColor預設關閉
         swchAutoExpo.setChecked(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTO_COLOR_ONOFF, false));
 

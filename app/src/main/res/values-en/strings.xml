@@ -60,8 +60,8 @@
     <string name="connecttoevernote">Connect to Evernote</string>
     <string name="compressrate">[FB]Image compress rate</string>
     <string name="autocrop">AutoCrop</string>
-    <string name= "threshold">-Threshold</string>
-    <string name = "autoexpo">-Auto Exposure</string>
+    <string name="threshold">-Threshold</string>
+    <string name="autoexpo">-Auto Exposure</string>
     <string name="thresholdwarning">Please input a number between 0 and 255</string>
     <string name="blankpagedetect">Blank page detection</string>
     <string name="autocolor">Auto Color</string>

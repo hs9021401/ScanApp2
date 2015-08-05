@@ -23,7 +23,7 @@ public class PreferenceHelper {
     public final static String key_AUTOCROP_THRESHOLD = "AUTOCROP_THRESHOLD";
     public final static String key_AUTOCROP_AUTOEXPOSURE = "AUTOCROP_AUTOEXPOSURE";
 
-    public final static String key_BLANKPAGE_DETECTION = "BLANKPAGE_DETECTION";
+    public final static String key_BLANKPAGE_DETECTION_ONOFF = "BLANKPAGE_DETECTION";
     public final static String key_BLANKPAGE_SENSITIVITY = "BLANKPAGE_SENSITIVITY";
 
     public final static String key_AUTO_COLOR_ONOFF = "AUTO_COLORONOFF";
@@ -31,9 +31,9 @@ public class PreferenceHelper {
     public final static String key_AUTO_COLOR_SENSITIVITY = "AUTO_COLOR_SENSITIVITY";
 
 
-    public final static String key_COMPRESS_RATE = "SHARE_COMPRESS_RATE";
+//    public final static String key_COMPRESS_RATE = "SHARE_COMPRESS_RATE";
     public static final String key_DROPBOX_ACCESS_KEY_NAME = "ACCESS_KEY";
-    public static final String key_DROPBOX_ACCESS_SECRET_NAME = "ACCESS_SECRET";
+    public static final String key_DROPBOX_ACCESS_SECRET_NAME = "ACCESS_SECRET_NAME";
 
     public final static String key_FIRST_LAUNCH = "FIRST_LAUNCH";
 
