@@ -25,6 +25,7 @@
     <string name="scan">掃描</string>
     <string name="folder">資料夾</string>
     <string name="setting">設定</string>
+    <string name="imgviewdesc">歡迎畫面</string>
 
     <!--ActionMode-->
     <string name="share">分享</string>

@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -83,7 +84,12 @@ public class ScanActivity extends Activity {
         setContentView(R.layout.activity_scan);
 
         imgScanAnim = (ImageView) findViewById(R.id.scananim);
-        imgScanAnim.setImageDrawable(getResources().getDrawable(R.drawable.scanning));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            imgScanAnim.setImageDrawable(getResources().getDrawable(R.drawable.scanning, null));
+        } else {
+            //noinspection deprecation
+            imgScanAnim.setImageDrawable(getResources().getDrawable(R.drawable.scanning));
+        }
 
         btnCancelScan = (Button) findViewById(R.id.cancelscan);
         btnCancelScan.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +265,7 @@ public class ScanActivity extends Activity {
         objectAnimator.start();
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void doScan() {
         String strDate;
         strDate = new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN).format(new Date());
@@ -289,7 +296,7 @@ public class ScanActivity extends Activity {
 
             //            20160603 過場動畫改背景
             Bitmap bmp = BitmapFactory.decodeFile(values[0]);
-            Drawable drawable = new BitmapDrawable(bmp);
+            Drawable drawable = new BitmapDrawable(getApplicationContext().getResources(), bmp);
             imgScanAnim.setImageDrawable(drawable);
         }
 
@@ -326,16 +333,12 @@ public class ScanActivity extends Activity {
             boolean bBlankPage = mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_BLANKPAGE_DETECTION_ONOFF, false);
             boolean bAutoColor = mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTO_COLOR_ONOFF, false);
 
-            if (bAutoCrop) {
-                xml.append("<AutoCrop>").append(bAutoCrop).append("</AutoCrop>");
-                xml.append("<Threshold>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_AUTOCROP_THRESHOLD, 128)).append("</Threshold>");
-                xml.append("<AutoExposure>").append(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_AUTOEXPOSURE, false)).append("</AutoExposure>");
-            }
+            xml.append("<AutoCrop>").append(bAutoCrop).append("</AutoCrop>");
+            xml.append("<Threshold>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_AUTOCROP_THRESHOLD, 128)).append("</Threshold>");
+            xml.append("<AutoExposure>").append(mPreferenceHelper.getPreferenceBoolean(PreferenceHelper.key_AUTOCROP_AUTOEXPOSURE, false)).append("</AutoExposure>");
 
-            if (bBlankPage) {
-                xml.append("<BlankPageDetection>").append(bBlankPage).append("</BlankPageDetection>");
-                xml.append("<BlankPageSensitivity>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_BLANKPAGE_SENSITIVITY, 255)).append("</BlankPageSensitivity>");
-            }
+            xml.append("<BlankPageDetection>").append(bBlankPage).append("</BlankPageDetection>");
+            xml.append("<BlankPageSensitivity>").append(mPreferenceHelper.getPreferenceInteger(PreferenceHelper.key_BLANKPAGE_SENSITIVITY, 255)).append("</BlankPageSensitivity>");
 
             if (bAutoColor) {
                 xml.append("<ColorMode>scan:AutoColorDetection</ColorMode>");
@@ -420,7 +423,6 @@ public class ScanActivity extends Activity {
                                 publishProgress(strOutputtThumbnailsPath);
                                 Thread.sleep(2000);
                             }
-                            //TODO: else(strDataFormat.equals(".pdf"))
                         }
 
                         if (responseCode == 404) {

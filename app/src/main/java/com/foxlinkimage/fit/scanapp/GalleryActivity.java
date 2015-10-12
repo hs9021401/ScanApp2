@@ -25,7 +25,7 @@ import eu.janmuller.android.simplecropimage.CropImage;
 public class GalleryActivity extends AppCompatActivity {
     GridView gvGallery;
     GalleryAdapter mGalleryAdapter;
-    static int screenWidth;
+    static int screenWidth, screenHeight;
     String strProcessCropImgPath;
     Boolean IsShare;
 
@@ -56,6 +56,7 @@ public class GalleryActivity extends AppCompatActivity {
         } else {
             mGalleryAdapter = new GalleryAdapter(getApplicationContext(), getSubFolderFile);
             gvGallery.setNumColumns(3);
+
             gvGallery.setAdapter(mGalleryAdapter);
             gvGallery.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
